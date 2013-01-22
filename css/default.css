@@ -1,0 +1,126 @@
+* {
+	font-family: Verdana;
+	font-size: 14px;
+}
+input{
+	font-family: Verdana;
+	font-size: 14px;
+	border: 1px solid #000000;
+}
+input.button{
+	font-family: Verdana;
+	font-size: 14px;
+	border: 1px solid #000000;
+	margin-right: 4px;
+	margin-left: 4px;
+	width: 180px;
+	height: 18px;
+}
+input.radio{
+	font-family: Verdana;
+	font-size: 14px;
+	border: 1px solid #000000;
+	margin-right: 4px;
+	margin-left: 4px;
+	width: 18px;
+	height: 18px;
+}
+table{
+	background-color: dark gray;
+	color: dark gray;
+}
+
+tr.default{
+	background-color: #e4e4e4;
+}
+tr.changed{
+	background-color: #33cc99;
+}
+tr.error{
+	background-color: #ff9966;
+
+}
+tr.tochange{
+	background-color: #ffff99;
+}
+
+th{
+	background-color: #bababa;
+	text-align: center;
+    font-weight: normal;
+}
+td.editbox{
+	background-color: #ff9999;
+}
+td.titolo {
+	color: #ffffff;
+	text-transform: uppercase;
+	text-align: left;
+	font-weight: normal;
+}
+a
+{
+	color: #000000;
+	/*font-weight: bold;*/
+}
+a.title
+{
+	font-family: Verdana;
+	font-size: 18px;
+	color: #000000;
+	font-weight: bold;
+}
+a.help
+{
+	color: red;
+	font-weight: bold;
+}
+span.selected
+{
+	color: red;
+	font-weight: bold;
+}
+div.titolo
+{
+	font-family: Verdana;
+	font-size: 18px;
+}
+
+/* Basic formats */
+
+.bold {
+	/*font-weight: bold;*/
+}
+
+.italic {
+	font-style: italic;
+}
+
+.underline {
+	text-decoration: underline;
+}
+
+/* Global align classes */
+
+.left {
+	text-align: inherit;
+}
+
+.center {
+	text-align: center;
+}
+
+.right {
+	text-align: right;
+}
+
+.full {
+	text-align: justify
+}
+
+.cmAdminBlockIcon {
+	width: 16px;
+	height: 16px;
+	float: left;
+	margin:1px 10px 0 0;
+}
