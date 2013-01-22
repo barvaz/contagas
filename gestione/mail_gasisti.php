@@ -190,7 +190,7 @@ require_once("../lib/PHPMailer_v5.1/class.phpmailer.php");
 				$mail->AddReplyTo(EMAIL_REPLY_TO, EMAIL_REPLY_TO_NAME);
 
 				if($gasista['ds_email'] != "-"){
-//$gasista['ds_email'] = 'amit.moravchick@gmail.com;a.moravchick@list-group.com';
+
 $arrMail = explode(';', $gasista['ds_email']);
 if(!empty($arrMail)){
 foreach($arrMail as $indirizzo){
@@ -198,9 +198,9 @@ foreach($arrMail as $indirizzo){
 }
 }
 				}else{
-	//			$mail->AddAddress("admin@gasdelsole.it");
+
 }
-//$mail->AddAddress("admin@gasdelsole.it");
+
 $mail->AddAddress(EMAIL_CC);
 
 				$mail->IsHTML(true);
