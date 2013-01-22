@@ -2,14 +2,13 @@
 
 ## Information
 
-#### ContaGas is build and tested on a sandard LAMP server (Linux, Apache2, MySQL, PHP5). It will probably break on Windows...
+ContaGas is build and tested on a sandard LAMP server (Linux, Apache2, MySQL, PHP5). It will probably break on Windows.
 
 ## Installation
 
 1. Manually create your database.
    You will need to know the database name, user, and password for installation
    purposes.
-
    (phpMyAdmin or similar are good tools for this)
 
 2. Execute the conf/contagas.sql script using the newlly created database
