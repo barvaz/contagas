@@ -81,7 +81,7 @@ foreach($gasisti as $gasista){
     $definition = getDefinition($cnn, $ini, 'movimenti');
     $movData=array();
     $movData['id_gasista'] = $nodeId;
-    $movData['importo'] = 10; // quota singola
+    $movData['importo'] = QUOTA_ANNUALE; // quota singola
     $movData['id_pagamento'] = $pagamId; // quote annuali
     $movData['id_autore'] = 0; // utente GAS
     $movData['ds_nota'] = $description; // quote annuali
@@ -90,7 +90,7 @@ foreach($gasisti as $gasista){
 
     $sql = getInsertQuery($definition["table"], $newValues, $otherValues, $excludeValues);//array("dt_ins","dt_agg"));
     $result = mysql_query($sql, $cnn) or rollback();
-    $totaleQuote += 10;
+    $totaleQuote += QUOTA_ANNUALE;
 }
 
 $pagamData['importo'] = $totaleQuote; // new import
