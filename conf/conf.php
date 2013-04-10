@@ -30,6 +30,8 @@ define ("USERPASSWORD_CRYPT", false);
 
 define("DEBUG_ENABLE", false);
 
+define("QUOTA_ANNUALE", 10);
+
 // parametri per il DB MySQL
 define ("DB_HOST","localhost");
 define ("DB_USER","root");
