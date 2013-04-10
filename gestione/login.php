@@ -36,13 +36,13 @@
 					<tr>
 						<td align="left" valign="middle" class="form" width="100">USERNAME</td>
 						<td align="left" valign="middle" width="100" class="form" colspan="3">
-							<input type="text" name="username" size="10" maxlength="15" />
+							<input type="text" name="username" size="50" maxlength="50" />
 						</td>
 					</tr>
 					<tr>
 						<td align="left" valign="middle" class="form">PASSWORD</td>
 						<td align="left" valign="middle" class="form" colspan="3">
-							<input type="password" name="password" size="10" maxlength="15" />
+							<input type="password" name="password" size="50" maxlength="50" />
 						</td>
 					</tr>
 					<tr>

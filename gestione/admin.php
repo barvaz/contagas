@@ -39,8 +39,8 @@ else
 //debug($userData);
 if(!$userData["fl_admin"] && !$userData["fl_contabile"])
 {
-	doError("noaccess");
-	exit;
+//	doError("noaccess");
+//	exit;
 }
 
 $action = $_REQUEST["action"];
