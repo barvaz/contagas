@@ -42,6 +42,15 @@ if(!$userData["fl_admin"] && !$userData["fl_contabile"] && !$userData["fl_attivo
 	doError("noaccess");
 	exit;
 }
+$isAdmin = false;
+if($userData['fl_admin']){
+    $isAdmin = true;
+}
+$isCont = false;
+if($userData['fl_contabile']){
+    $isCont = true;
+}
+
 $action = $_REQUEST["action"];
 $nodeId = intval($_REQUEST["nodeId"]);
 $param1 = "";
@@ -204,6 +213,13 @@ if(count($definition) > 0)
 			{
 				continue;
 			}
+
+            if($param1 == 'users' && !$isAdmin){
+                if(($field == "fl_attivo") || ($field == "fl_admin") || ($field == "fl_contabile"))
+                {
+                    $iniItem["ro"]=true;
+                }
+            }
 			if(($action == "new") && ($type == "password"))
 			{
 				$iniItem["required"] = TRUE;
@@ -367,7 +383,7 @@ if(count($definition) > 0)
 					}
 					break;
 				case "checkbox":
-					if(!$formReadOnly)
+					if(!$formReadOnly && !$iniItem["ro"])
 					{
 						echo GetCheckBox($field, 1, $iniItem["value"]);
 					}
