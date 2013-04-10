@@ -37,7 +37,7 @@ else
 	exit;
 }
 //debug($userData);
-if(!$userData["fl_admin"] && !$userData["fl_contabile"])
+if(!$userData["fl_admin"] && !$userData["fl_contabile"] && !$userData["fl_attivo"])
 {
 	doError("noaccess");
 	exit;
@@ -189,8 +189,8 @@ if(count($definition) > 0)
 		$tableData = $tmpData[0];
 	}
 	if($nodeId == 0){
-        $forInsert = TRUE;
-        $tableData = array();
+//        $forInsert = TRUE;
+//        $tableData = array();
     }
 	if((!$forInsert && ($action == "edit")) || ($forInsert && ($action == "new")))
 	{

@@ -36,7 +36,7 @@ else
 	header("location: ../gestione/login.php");
 	exit;
 }
-if(!$userData["fl_admin"] && !$userData["fl_contabile"])
+if(!$userData["fl_admin"] && !$userData["fl_contabile"] && !$userData["fl_attivo"])
 {
 	doError("wrong_login");
 	exit;
@@ -143,8 +143,10 @@ foreach($targetList as $t)
 	echo $str;
 }
 	echo "<br />";
+    if($isAdmin || $isCont){
         echo "<a href=\"javascript:popUp('../gestione/saldo.php')\"> Estratto conto e Saldo C/C</a><br/>";
         echo "<a href=\"javascript:popUp('../gestione/quote_annuali.php')\"> Attribuisci quote annuali a tutti i gasisti</a><br/>";
+    }
     if($isAdmin){   
  echo "<br/><a href=\"javascript:popUp('../gestione/mail_gasisti.php')\" onClick=\"return confirm('Spedire decine di email???');\"> Manda mail - situazione contabile a tutti</a><br/>";
 }
@@ -305,15 +307,25 @@ if($target != "")
 				echo getCmAdminBlockIcons("edit_only", "param1=$selectedSection", $tableData[$i][$definition["key"]]);
 			}else{
 				if($target == "users" && getBilancio($cnn, $tableData[$i][$definition["key"]]) != 0){
-					echo getCmAdminBlockIcons("edit_only", "param1=$selectedSection", $tableData[$i][$definition["key"]]);
+                    echo getCmAdminBlockIcons("edit_only", "param1=$selectedSection", $tableData[$i][$definition["key"]]);
 				}else if(/*($target == "pagamenti" || $target == "movimenti") && */ !$isAdmin && $isCont){
-					echo getCmAdminBlockIcons("edit_only", "param1=$selectedSection", $tableData[$i][$definition["key"]]);
+                    echo getCmAdminBlockIcons("edit_only", "param1=$selectedSection", $tableData[$i][$definition["key"]]);
+				}else if ($isAdmin){
+                    echo getCmAdminBlockIcons("edit", "param1=$selectedSection", $tableData[$i][$definition["key"]]);
 				}else{
-					echo getCmAdminBlockIcons("edit", "param1=$selectedSection", $tableData[$i][$definition["key"]]);
-				}
+                    echo getCmAdminBlockIcons("view_only", "param1=$selectedSection", $tableData[$i][$definition["key"]]);
+                }
 			}
 			}else{
-				echo getCmAdminBlockIcons("view_only", "param1=$selectedSection", $tableData[$i][$definition["key"]]);
+                if($target == 'users'){
+                    if($tableData[$i][$definition["key"]] == $userId){
+                        echo getCmAdminBlockIcons("edit_only", "param1=$selectedSection", $tableData[$i][$definition["key"]]);
+                    }else{
+                        echo getCmAdminBlockIcons("view_only", "param1=$selectedSection", $tableData[$i][$definition["key"]]);
+                    }
+                }else{
+				    echo getCmAdminBlockIcons("view_only", "param1=$selectedSection", $tableData[$i][$definition["key"]]);
+                }
 			}
 			echo "</td>";
 			foreach($definition["fields"] as $f)
