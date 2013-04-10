@@ -15,8 +15,8 @@
     limitations under the License.
 */
 
+include('../conf/errortable.php');
 
-$matchId = intval($_REQUEST["match_id"]);
 $err = trim($_REQUEST["errorcode"]);
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -28,6 +28,7 @@ $err = trim($_REQUEST["errorcode"]);
 </head>
 
 <body>
+<h1><?=$errorTable[$err]?></h1>
 <?
 include("../include/error.php");
 
