@@ -145,7 +145,7 @@ foreach($targetList as $t)
 	echo "<br />";
     if($isAdmin || $isCont){
         echo "<a href=\"javascript:popUp('../gestione/saldo.php')\"> Estratto conto e Saldo C/C</a><br/>";
-        echo "<a href=\"javascript:popUp('../gestione/quote_annuali.php')\"> Attribuisci quote annuali a tutti i gasisti</a><br/>";
+        echo "<a href=\"javascript:popUp('../gestione/quote_annuali.php')\" onClick=\"return confirm('Attribuisci quote annuali a tutti i gasisti???operazione non è riversibile!');\"> Attribuisci quote annuali a tutti i gasisti</a><br/>";
     }
     if($isAdmin){   
  echo "<br/><a href=\"javascript:popUp('../gestione/mail_gasisti.php')\" onClick=\"return confirm('Spedire decine di email???');\"> Manda mail - situazione contabile a tutti</a><br/>";
