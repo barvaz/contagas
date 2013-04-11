@@ -68,7 +68,7 @@ $sql = getInsertQuery($definition["table"], $newValues, $otherValues, $excludeVa
 $result = mysql_query($sql, $cnn) or doError("sql_gasisti","Errore nell'esecuzione della query: " . $sql);
 $pagamId = mysql_insert_id();
 
-$sql_gasisti = "select id,nm_nome,nm_cognome,ds_email,ds_telefono,indirizzo_1,indirizzo_2,username,password,fl_admin,fl_contabile,fl_attivo,dt_ins,dt_agg from users where fl_attivo = 1";
+$sql_gasisti = "select id,nm_nome,nm_cognome,ds_email,ds_telefono,indirizzo_1,indirizzo_2,username,password,fl_admin,fl_contabile,fl_attivo,dt_ins,dt_agg from users where fl_attivo = 1 and id > 0";
 $result = mysql_query($sql_gasisti, $cnn) or doError("sql_gasisti","Errore nell'esecuzione della query: " . $sql_gasisti);
 $gasisti = array();
 while ($row = mysql_fetch_assoc($result)){
