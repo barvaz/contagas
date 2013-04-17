@@ -78,6 +78,7 @@ switch ($param1){
 		$table = "versamenti";
 		$title = "modifica versamento";
 		break;
+	case "v_pagamenti":
 	case "pagamenti":
 		$selectedSection = "pagamenti";
 		$table = "pagamenti";
@@ -122,7 +123,7 @@ switch ($action)
 			$tmp = str_replace(',', '.', $tmp);
 			$newValues['importo']['value'] = $tmp;
 		}
-		if($param1 == "versamenti" || $param1 == "pagamenti" || $param1 == "movimenti")
+		if($param1 == "versamenti" || $param1 == "pagamenti" || $param1 == "v_pagamenti" || $param1 == "movimenti")
 		{
 			$otherValues["id_autore"] = $userId;
 		}

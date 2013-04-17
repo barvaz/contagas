@@ -81,8 +81,8 @@ switch ($target)
 		break;
 	case "pagamenti":
 		$onlyAdmin = false;
-		$selectedSection = "pagamenti";
-		$excludeColumns = array("id");
+		$selectedSection = "v_pagamenti";
+		$excludeColumns = array("id","tot_movimenti","diff");
 		break;
 	case "movimenti":
 		$onlyAdmin = false;
@@ -300,7 +300,17 @@ if($target != "")
 	{
 		for($i = 0; $i < count($tableData); $i++)
 		{
-			echo "<tr>";
+            $bgcolor = "";
+			if($target=="pagamenti" || $target == "users"){
+                if($tableData[$i]['diff'] > 0){
+                    $bgcolor = 'lightgreen';
+                }elseif($tableData[$i]['diff'] < 0){
+                    $bgcolor = 'pink';
+                }
+            }else{
+
+            }
+            echo "<tr bgcolor=\"$bgcolor\">";
 			echo "<td>";
 			if(!$onlyAdmin || $isAdmin || ($isCont && $target=="pagamenti")){
 			if($target == "style"){
