@@ -81,6 +81,7 @@ switch ($param1){
 		$title = "modifica versamento";
 		break;
 	case "pagamenti":
+	case "v_pagamenti":
 		$selectedSection = "pagamenti";
 		$title = "modifica pagamento";
 		break;
