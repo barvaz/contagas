@@ -140,13 +140,13 @@ ds_nota_label=descrizione
 
 id_gasista_type=combo
 id_gasista_label=gasista
-id_gasista_required=true
+id_gasista_required=false
 id_gasista_combo_source=table
 id_gasista_combo_lookup=users
 id_gasista_combo_key=id
 id_gasista_combo_value=nm_cognome,nm_nome
 id_gasista_combo_order=nm_cognome
-id_gasista_combo_emptyline=TRUE
+id_gasista_combo_emptyline=false
 id_gasista_combo_filter="fl_attivo=1"
 id_gasista_multiple=FALSE
 
@@ -326,13 +326,13 @@ ds_nota_label=descrizione
 
 id_gasista_type=combo
 id_gasista_label=gasista
-id_gasista_required=true
+id_gasista_required=false
 id_gasista_combo_source=table
 id_gasista_combo_lookup=users
 id_gasista_combo_key=id
 id_gasista_combo_value=nm_cognome,nm_nome
 id_gasista_combo_order=nm_cognome
-id_gasista_combo_emptyline=TRUE
+id_gasista_combo_emptyline=false
 id_gasista_combo_filter="fl_attivo=1"
 id_gasista_multiple=FALSE
 
