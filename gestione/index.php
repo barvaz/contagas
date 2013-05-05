@@ -264,10 +264,10 @@ if ($target != "") {
     if (count($tableData) > 0) {
         for ($i = 0; $i < count($tableData); $i++) {
             $bgcolor = "";
-            if ($target == "pagamenti" || $target == "users") {
+            if ($target == "pagamenti" ) {
                 if ($tableData[$i]['diff'] > 0) {
                     $bgcolor = 'lightgreen';
-                } elseif ($tableData[$i]['diff'] < 0) {
+                } elseif (!$tableData[$i]['diff'] || $tableData[$i]['diff'] < 0) {
                     $bgcolor = 'pink';
                 }
             } else {
