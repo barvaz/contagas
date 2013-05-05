@@ -42,7 +42,14 @@ if(!$userData["fl_admin"] && !$userData["fl_contabile"])
 //	doError("noaccess");
 //	exit;
 }
-
+$isAdmin = false;
+if($userData['fl_admin']){
+    $isAdmin = true;
+}
+$isCont = false;
+if($userData['fl_contabile']){
+    $isCont = true;
+}
 $action = $_REQUEST["action"];
 $nodeId = intval($_REQUEST["nodeId"]);
 $param1 = "";
@@ -78,6 +85,7 @@ switch ($param1){
 		$table = "versamenti";
 		$title = "modifica versamento";
 		break;
+	case "v_pagamenti":
 	case "pagamenti":
 		$selectedSection = "pagamenti";
 		$table = "pagamenti";
@@ -122,7 +130,7 @@ switch ($action)
 			$tmp = str_replace(',', '.', $tmp);
 			$newValues['importo']['value'] = $tmp;
 		}
-		if($param1 == "versamenti" || $param1 == "pagamenti" || $param1 == "movimenti")
+		if($param1 == "versamenti" || $param1 == "pagamenti" || $param1 == "v_pagamenti" || $param1 == "movimenti")
 		{
 			$otherValues["id_autore"] = $userId;
 		}
@@ -159,12 +167,18 @@ switch ($action)
 				}
 				
 			}
+            if($param1 == 'users' && !$isAdmin){
+                $excludeValues[] = "fl_attivo";
+                $excludeValues[] = "fl_admin";
+                $excludeValues[] = "fl_contabile";
+            }
 			$otherValues["dt_agg"] = $curDate;
 			
 			$sql = getUpdateQuery($definition["table"], $newValues, $otherValues, $excludeValues);//array("dt_ins","dt_agg"));
 			
 			$sql .= " WHERE " . $definition["key"] . " = $nodeId";
-			$result = mysql_query($sql, $cnn) or doError("sql", "Errore nell'esecuzione della query: " . $sql);
+			debug($sql);
+            $result = mysql_query($sql, $cnn) or doError("sql", "Errore nell'esecuzione della query: " . $sql);
 		}
 			
 

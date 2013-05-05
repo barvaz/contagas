@@ -81,6 +81,7 @@ switch ($param1){
 		$title = "modifica versamento";
 		break;
 	case "pagamenti":
+	case "v_pagamenti":
 		$selectedSection = "pagamenti";
 		$title = "modifica pagamento";
 		break;
@@ -197,9 +198,9 @@ if(count($definition) > 0)
 		$forInsert = FALSE;
 		$tableData = $tmpData[0];
 	}
-	if($nodeId == 0){
-//        $forInsert = TRUE;
-//        $tableData = array();
+	if($param1 == "users" && $action == "new" && $nodeId == 0){
+        $forInsert = TRUE;
+        $tableData = array();
     }
 	if((!$forInsert && ($action == "edit")) || ($forInsert && ($action == "new")))
 	{

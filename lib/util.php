@@ -445,7 +445,7 @@ function getCmAdminBlockIcons($family, $extra, $itemId = 0, $winname = "block", 
 			if ($extra=="param1=users" && $itemId>0) {
 			 $icone .= "<div class=\"cmAdminBlockIcon\"><a href=\"javascript:popUp('../gestione/photo_gasista.php?$pp&action=photo','$winname','" . WINDOWS_PARAM . "')\"><img src='../img/e_photo.gif' title='Situazione contabile' width='16' height='16' border='0'></a></div>";
 			}
-			if ($extra=="param1=pagamenti") {
+			if ($extra=="param1=v_pagamenti") {
 			 $icone .= "<div class=\"cmAdminBlockIcon\"><a href=\"javascript:popUp('../gestione/photo_pagamenti.php?$pp&action=photo','$winname','" . WINDOWS_PARAM . "')\"><img src='../img/e_photo.gif' title='Situazione contabile' width='16' height='16' border='0'></a></div>";
 			}
 			
@@ -478,7 +478,7 @@ function getCmAdminBlockIcons($family, $extra, $itemId = 0, $winname = "block", 
 			if ($extra=="param1=users" && $itemId>0) {
 				 $icone .= "<div class=\"cmAdminBlockIcon\"><a href=\"javascript:popUp('../gestione/photo_gasista.php?$pp&action=photo','$winname','" . WINDOWS_PARAM . "')\"><img src='../img/e_photo.gif' title='Situazione contabile' width='16' height='16' border='0'></a></div>";
 			}
-if ($extra=="param1=pagamenti") {
+if ($extra=="param1=v_pagamenti") {
 			 $icone .= "<div class=\"cmAdminBlockIcon\"><a href=\"javascript:popUp('../gestione/photo_pagamenti.php?$pp&action=photo','$winname','" . WINDOWS_PARAM . "')\"><img src='../img/e_photo.gif' title='Situazione contabile' width='16' height='16' border='0'></a></div>";
 			}
 			break;
