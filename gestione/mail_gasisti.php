@@ -15,7 +15,7 @@
     limitations under the License.
 */
 
-
+$time_start = microtime(true);
 include ("../conf/conf.php");
 include ("../lib/sessions.php");
 include ("../lib/users.php");
@@ -207,9 +207,9 @@ foreach ($gasisti as $gasista) {
     } else {
         echo "Mailer Error: " . $mail->ErrorInfo;
     }
-
+    logWrite('partial execution time in seconds: ' . (microtime(true) - $time_start), 'mail');
 
 }
-
+logWrite('Total execution time in seconds: ' . (microtime(true) - $time_start), 'mail');
 
 //exit;
