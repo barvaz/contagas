@@ -26,3 +26,9 @@ ContaGas is build and tested on a sandard LAMP server (Linux, Apache2, MySQL, PH
 
 7. Login with the admin username/password. (admin/admin)
    You should change your admin passsword to something private and secure!
+
+## Update
+
+1. grab the new code
+
+2. Execute sql updates you find in sql/ directory

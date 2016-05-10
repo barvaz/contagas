@@ -186,7 +186,7 @@ dt_agg_ro=true
 table=pagamenti
 key=id
 orderby="dt_pagamento desc"
-fields=id,id_fornitore,importo,id_causale,ds_nota,id_autore,dt_pagamento,dt_ins,dt_agg
+fields=id,id_fornitore,importo,id_causale,ds_nota,fl_open,fl_paid,fl_splitted,id_autore,dt_pagamento,dt_ins,dt_agg
 
 id_ro=true
 
@@ -201,6 +201,18 @@ dt_pagamento_required=true
 ds_nota_type=text
 ds_nota_label=descrizione
 ds_nota_required=true
+
+fl_open_type=checkbox
+fl_open_label=ordine aperto
+fl_open_defaultvalue=0
+
+fl_paid_type=checkbox
+fl_paid_label=ordine pagato
+fl_paid_defaultvalue=0
+
+fl_splitted_type=checkbox
+fl_splitted_label=ordine ripartito
+fl_splitted_defaultvalue=0
 
 id_fornitore_type=combo
 id_fornitore_label=fornitore
@@ -249,7 +261,7 @@ dt_agg_ro=true
 table=v_pagamenti
 key=id
 orderby="dt_pagamento desc"
-fields=id,id_fornitore,importo,id_causale,ds_nota,id_autore,dt_pagamento,dt_ins,dt_agg,diff,tot_movimenti
+fields=id,id_fornitore,importo,id_causale,ds_nota,fl_open,fl_paid,fl_splitted,id_autore,dt_pagamento,dt_ins,dt_agg,diff,tot_movimenti
 
 id_ro=true
 
@@ -264,6 +276,18 @@ dt_pagamento_required=true
 ds_nota_type=text
 ds_nota_label=descrizione
 ds_nota_required=true
+
+fl_open_type=checkbox
+fl_open_label=ordine aperto
+fl_open_defaultvalue=0
+
+fl_paid_type=checkbox
+fl_paid_label=ordine pagato
+fl_paid_defaultvalue=0
+
+fl_splitted_type=checkbox
+fl_splitted_label=ordine ripartito
+fl_splitted_defaultvalue=0
 
 id_fornitore_type=combo
 id_fornitore_label=fornitore
@@ -344,6 +368,7 @@ id_pagamento_combo_lookup=pagamenti
 id_pagamento_combo_key=id
 id_pagamento_combo_value=dt_pagamento,ds_nota
 id_pagamento_combo_order=dt_pagamento desc,ds_nota
+id_pagamento_combo_filter="fl_splitted=0"
 id_pagamento_combo_emptyline=TRUE
 id_pagamento_multiple=FALSE
 

@@ -102,6 +102,7 @@ $nodeId = intval($_REQUEST["nodeId"]);
                     echo "<tr> <td colspan=5>$importo </td><td colspan=5>$nm_nome </td><td colspan=5>$ds_nota </td><td colspan=5>$dt_pagamento </td></tr> \n";
                     $conta_uscite = $conta_uscite + $importo;
                 }
+                $conta_uscite = round($conta_uscite, 2);
                 mysql_free_result($result);
                 echo "<td>&nbsp;</td> \n";
                 echo "</table>\n";
@@ -122,11 +123,12 @@ $nodeId = intval($_REQUEST["nodeId"]);
                     echo "<tr><td colspan=5>$importo </td><td colspan=5>$ds_causale </td><td colspan=5>$dt_versamento </td></tr> \n";
                     $conta_entrate = $conta_entrate + $importo;
                 }
+                $conta_entrate = round($conta_entrate, 2);
                 mysql_free_result($result);
                 echo "<td>&nbsp;</td> \n";
                 echo "</table>\n";
 //TOTALI
-                $euro_tot = $conta_entrate - $conta_uscite;
+                $euro_tot = round(($conta_entrate - $conta_uscite), 2);
                 $ts = date("Y-m-d");
                 echo "<table width=\"100%\"  border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"text-align: center;\" >\n";
                 echo "<td>&nbsp;</td> \n";

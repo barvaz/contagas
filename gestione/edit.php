@@ -82,7 +82,7 @@ switch ($param1){
 		break;
 	case "pagamenti":
 	case "v_pagamenti":
-		$selectedSection = "pagamenti";
+		$selectedSection = "v_pagamenti";
 		$title = "modifica pagamento";
 		break;
 	case "movimenti":
@@ -210,6 +210,27 @@ if(count($definition) > 0)
 			$field = $definition["fields"][$i];
 			$iniItem = $definition[$field];
 			$type = $iniItem["type"];
+			if ($param1 == 'pagamenti' || $param1 == 'v_pagamenti'){
+				if(($field == 'diff') || ($field == 'tot_movimenti')){
+					$iniItem["ro"]=true;
+				}
+				if($field == 'fl_splitted'){
+					if ($definition['diff']['value'] == null || floatval($definition['diff']['value']) != 0){
+						$iniItem["ro"] = true;
+						$iniItem["label"] = $iniItem["label"] . "<br/>(conti non tornano. impossibile chiudere)";
+					}
+					if($forInsert){
+						$iniItem["ro"]=true;
+					}
+				}
+				if(!$isAdmin){
+					if(($field == "fl_paid"))
+					{
+						$iniItem["ro"]=true;
+					}
+				}
+			}
+
 			if(($field == "dt_ins") || ($field == "dt_agg"))
 			{
 				continue;

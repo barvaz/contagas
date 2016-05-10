@@ -56,6 +56,7 @@ $targetList[] = array("fornitori", "Fornitori");
 $targetList[] = array("causali", "Causali");
 $targetList[] = array("versamenti", "Versamenti C/C");
 $targetList[] = array("pagamenti", "Pagamenti C/C");
+$targetList[] = array("v_pagamenti", "Pagamenti C/C con conteggio (più lento)");
 $targetList[] = array("movimenti", "Movimenti dei Gasisti");
 
 switch ($target) {
@@ -76,8 +77,13 @@ switch ($target) {
         break;
     case "pagamenti":
         $onlyAdmin = false;
+        $selectedSection = "pagamenti";
+        $excludeColumns = array("id");
+        break;
+    case "v_pagamenti":
+        $onlyAdmin = false;
         $selectedSection = "v_pagamenti";
-        $excludeColumns = array("id", "tot_movimenti", "diff");
+        $excludeColumns = array("id");
         break;
     case "movimenti":
         $onlyAdmin = false;
@@ -126,7 +132,7 @@ foreach ($targetList as $t) {
     if ($t[0] == $target) {
         $style = "background-color: #ff6666;";
     }
-    if ($t[0] == "versamenti" | $t[0] == "pagamenti" | $t[0] == "movimenti") {
+    if ($t[0] == "versamenti" | $t[0] == "pagamenti" | $t[0] == "v_pagamenti" | $t[0] == "movimenti") {
         $style1 = "margin-left:100px;font-color:#ff6666;";
     }
     $str = "<p style=\"$style;$style1;margin-bottom:4px;margin-top:4px\"><a href=\"?sec=" . $t[0] . "\">" . $t[1] . "</a></p>";
@@ -246,6 +252,9 @@ if ($target != "") {
         if (($definition[$f]["type"] == "text") && ($definition[$f]["macrotype"] != "calendar")) {
             echo GetInput($f, "text", $filterValues[$f], $definition[$f]["datasize"], 10);
         }
+        if (($definition[$f]["type"] == "checkbox")) {
+            echo GetInput($f, "text", $filterValues[$f], 1, 1);
+        }
         echo "</th>";
     }
     echo "<th>&nbsp;</th>";
@@ -264,11 +273,11 @@ if ($target != "") {
     if (count($tableData) > 0) {
         for ($i = 0; $i < count($tableData); $i++) {
             $bgcolor = "";
-            if ($target == "pagamenti" ) {
+            if ($target == "v_pagamenti" ) {
                 if ($tableData[$i]['diff'] > 0) {
-                    $bgcolor = 'lightgreen';
-                } elseif (!$tableData[$i]['diff'] || $tableData[$i]['diff'] < 0) {
                     $bgcolor = 'pink';
+                } elseif (!$tableData[$i]['diff'] || $tableData[$i]['diff'] < 0) {
+                    $bgcolor = 'lightgreen';
                 }
             } else {
 

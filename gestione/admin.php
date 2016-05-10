@@ -172,6 +172,9 @@ switch ($action)
                 $excludeValues[] = "fl_admin";
                 $excludeValues[] = "fl_contabile";
             }
+            if(($param1 == 'v_pagamenti' || $param1 == 'pagamenti') && !$isAdmin){
+                $excludeValues[] = "fl_paid";
+            }
 			$otherValues["dt_agg"] = $curDate;
 			
 			$sql = getUpdateQuery($definition["table"], $newValues, $otherValues, $excludeValues);//array("dt_ins","dt_agg"));
