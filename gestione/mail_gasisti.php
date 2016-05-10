@@ -120,6 +120,7 @@ foreach ($gasisti as $gasista) {
         $html .= "<tr> <td colspan=5>$importo </td><td colspan=5>$nm_nome </td><td colspan=5>$ds_nota </td><td colspan=5>$dt_pagamento </td></tr> \n";
         $conta_uscite = $conta_uscite + $importo;
     }
+    $conta_uscite = round($conta_uscite, 2);
     mysql_free_result($result);
     $html .= "<td>&nbsp;</td> \n";
     $html .= "</table>\n";
@@ -140,11 +141,12 @@ foreach ($gasisti as $gasista) {
         $html .= "<tr><td colspan=5>$importo </td><td colspan=5>$ds_causale </td><td colspan=5>$dt_versamento </td></tr> \n";
         $conta_entrate = $conta_entrate + $importo;
     }
+    $conta_entrate = round($conta_entrate, 2);
     mysql_free_result($result);
     $html .= "<td>&nbsp;</td> \n";
     $html .= "</table>\n";
     //TOTALI
-    $euro_tot = $conta_entrate - $conta_uscite;
+    $euro_tot = round(($conta_entrate - $conta_uscite), 2);
     $ts = date("Y-m-d");
     $tsUmano = date("d-m-Y");
     $html .= "<table width=\"100%\"  border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"text-align: center;\" >\n";

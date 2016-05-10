@@ -133,11 +133,11 @@ $nodeId = intval($_REQUEST["nodeId"]);
                     echo "<td>&nbsp;</td> \n";
                     echo "<hr noshade size='1' color='$leadcolor' style='dot'>";
                     echo "<hr noshade size='1' color='$leadcolor' style='dot'>";
-                    if ($diff < 0) {
-                        echo "<tr><td colspan=5>PAGATI </td><td colspan=5>DAI GASISTI</td><td colspan=5> <b><font color=\"red\"> MANCANO </font></b></td></tr>\n";
+                    if ($diff > 0) {
+                        echo "<tr><td colspan=5>PAGATI </td><td colspan=5>DAI GASISTI</td><td colspan=5> <b><font color=\"red\"> Conto Gas paga la differenza </font></b></td></tr>\n";
                         echo "<tr><td colspan=5>$conta_uscite Euro </td><td colspan=5>$conta_entrate Euro </td><td colspan=5><b><font color=\"red\">$diff Euro !!!</font></b></td></tr> \n";
-                    } elseif ($diff > 0) {
-                        echo "<tr><td colspan=5><b>PAGATI</b></td><td colspan=5><b>DAI GASISTI</b></td><td colspan=5> <b><font color=\"red\">TROPPA GRAZIA S.ANTONIO, AVANZANO </font></b></td></tr>\n";
+                    } elseif ($diff < 0) {
+                        echo "<tr><td colspan=5><b>PAGATI</b></td><td colspan=5><b>DAI GASISTI</b></td><td colspan=5> <b><font color=\"red\">Gasisti pagano troppo </font></b></td></tr>\n";
                         echo "<tr><td colspan=5><b>$conta_uscite Euro </b></td><td colspan=5><b>$conta_entrate Euro </b></td><td colspan=5><b><font color=\"red\">$diff Euro !!!</font></b></td></tr> \n";
                     } else {
                         echo "<tr><td colspan=5><b>PAGATI</b></td><td colspan=5><b>DAI GASISTI</b></td><td colspan=5> <b><font color=\"green\"> I CONTI TORNANO, DIFFERENZA DI </font></b></td></tr>\n";
