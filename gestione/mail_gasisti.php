@@ -38,6 +38,8 @@ if (!$userData["fl_admin"] && !$userData["fl_contabile"]) {
     doError("noaccess");
     exit;
 }
+$fromId = intval($_REQUEST["fromId"]);
+
 $action = $_REQUEST["action"];
 $nodeId = intval($_REQUEST["nodeId"]);
 $param1 = "";
@@ -85,7 +87,7 @@ $definition = getDefinition($cnn, $ini, $selectedSection);
 
 $attr = "";
 
-$sql_gasisti = "select id,nm_nome,nm_cognome,ds_email,ds_telefono,indirizzo_1,indirizzo_2,username,password,fl_admin,fl_contabile,fl_attivo,dt_ins,dt_agg from users where fl_attivo = 1";
+$sql_gasisti = "select id,nm_nome,nm_cognome,ds_email,ds_telefono,indirizzo_1,indirizzo_2,username,password,fl_admin,fl_contabile,fl_attivo,dt_ins,dt_agg from users where fl_attivo = 1 and id >= $fromId order by id desc";
 $result = mysql_query($sql_gasisti, $cnn) or doError("sql_gasisti", "Errore nell'esecuzione della query: " . $sql_gasisti);
 $gasisti = array();
 while ($row = mysql_fetch_assoc($result)) {

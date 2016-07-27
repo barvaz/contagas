@@ -132,7 +132,9 @@ switch ($action)
 		}
 		if($param1 == "versamenti" || $param1 == "pagamenti" || $param1 == "v_pagamenti" || $param1 == "movimenti")
 		{
-			$otherValues["id_autore"] = $userId;
+			if($action == "new"){
+				$otherValues["id_autore"] = $userId;
+			}
 		}
 		
 		if($forInsert)
