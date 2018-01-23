@@ -145,6 +145,7 @@ if ($isAdmin || $isCont) {
 if ($isAdmin) {
     echo "<a href=\"javascript:popUp('../gestione/quote_annuali.php')\" onClick=\"return confirm('Attribuisci quote annuali a tutti i gasisti???operazione non è riversibile!');\"> Attribuisci quote annuali a tutti i gasisti</a><br/>";
     echo "<br/><a href=\"javascript:popUp('../gestione/mail_gasisti.php')\" onClick=\"return confirm('Spedire decine di email???');\"> Manda mail - situazione contabile a tutti</a><br/>";
+    echo "<br/><a href=\"javascript:popUp('../gestione/mail_gasisti_rosso.php')\" onClick=\"return confirm('Spedire decine di email???');\"> Manda mail gasisti in rosso</a><br/>";
 }
 echo "<br/><a href=\"../gestione/logout.php\">logout</a><br />";
 
