@@ -1,10 +1,7 @@
-ALTER TABLE `pagamenti`
-ADD `fl_open` TINYINT NOT NULL DEFAULT '0' AFTER `ds_nota`,
-ADD `fl_paid` TINYINT NOT NULL DEFAULT '0' AFTER `fl_open`,
-ADD `fl_splitted` TINYINT NOT NULL DEFAULT '0' AFTER `fl_paid`;
-update pagamenti set fl_open = 0, fl_paid = 1, fl_splitted = 1;
+ALTER TABLE `ordini`
+ADD `fl_closed` TINYINT NOT NULL DEFAULT '0' AFTER `fl_splitted`;
 
-drop view v_pagamenti;
-CREATE ALGORITHM = UNDEFINED VIEW  `v_pagamenti` AS SELECT pagamenti.importo - SUM( movimenti.importo ) AS diff, SUM( movimenti.importo ) AS tot_movimenti, pagamenti . *
-FROM  `pagamenti` LEFT JOIN movimenti ON movimenti.id_pagamento = pagamenti.id
-GROUP BY pagamenti.id, pagamenti.`id_fornitore` , pagamenti.`importo` , pagamenti.`dt_pagamento` , pagamenti.`id_causale` , pagamenti.`ds_nota` , pagamenti.`id_autore` , pagamenti.`dt_ins` , pagamenti.`dt_agg`
+drop view v_ordini;
+CREATE ALGORITHM = UNDEFINED VIEW  `v_ordini` AS SELECT ordini.importo - SUM( movimenti.importo ) AS diff, SUM( movimenti.importo ) AS tot_movimenti, ordini . *
+FROM  `ordini` LEFT JOIN movimenti ON movimenti.id_ordine = ordini.id
+GROUP BY ordini.id, ordini.`id_fornitore` , ordini.`importo` , ordini.`dt_ordine` , ordini.`id_causale` , ordini.`ds_nota` , ordini.`id_autore` , ordini.`dt_ins` , ordini.`dt_agg`

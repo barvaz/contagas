@@ -84,19 +84,19 @@ $nodeId = intval($_REQUEST["nodeId"]);
             <table width="100%" border="0" cellspacing="0" cellpadding="5" class="admintable">
                 <?
 
-// query per fotografare situazione contabile del pagamento  
-                $sql_pagamentiGAS = " select id_fornitore from pagamenti where id  = " . $nodeId . "";
-                $resultpagamentiGAS = mysql_query($sql_pagamentiGAS, $cnn) or doError("sql_pagamentiGAS", "Errore nell'esecuzione della query: " . $sql_pagamentiGAS);
-                while ($row = mysql_fetch_assoc($resultpagamentiGAS)) {
+// query per fotografare situazione contabile del ordine
+                $sql_ordiniGAS = " select id_fornitore from ordini where id  = " . $nodeId . "";
+                $resultordiniGAS = mysql_query($sql_ordiniGAS, $cnn) or doError("sql_ordiniGAS", "Errore nell'esecuzione della query: " . $sql_ordiniGAS);
+                while ($row = mysql_fetch_assoc($resultordiniGAS)) {
                     $id_fornitore = $row["id_fornitore"];
                 }
-                mysql_free_result($resultpagamentiGAS);
-/// composizione della pagina solo nel caso che il pagamento non sia relativo a speseGAS:
+                mysql_free_result($resultordiniGAS);
+/// composizione della pagina solo nel caso che il ordine non sia relativo a speseGAS:
                 if ($id_fornitore != 5) {
-//USCITA = pagamento
+//USCITA = ordine
                     $conta_uscite = 0;
                     $diff = 0;
-                    $sql_uscite = " select diff, importo from v_pagamenti where id  = " . $nodeId . "";
+                    $sql_uscite = " select diff, importo from v_ordini where id  = " . $nodeId . "";
                     $result = mysql_query($sql_uscite, $cnn) or doError("sql_uscite", "Errore nell'esecuzione della query: " . $sql_uscite);
                     echo "<table width=\"100%\"  border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"text-align: center;\" >\n";
                     echo "<hr noshade size='1' color='$leadcolor' style='dot'>";
@@ -110,7 +110,7 @@ $nodeId = intval($_REQUEST["nodeId"]);
                     echo "</table>\n";
 //ENTRATE
                     $conta_entrate = 0;
-                    $sql_entrate = " select A.importo, B.nm_cognome from movimenti as A, users as B where A.id_gasista=B.id and A.id_pagamento  = " . $nodeId;
+                    $sql_entrate = " select A.importo, B.nm_cognome from movimenti as A, users as B where A.id_gasista=B.id and A.id_ordine  = " . $nodeId;
                     $result = mysql_query($sql_entrate, $cnn) or doError("sql_entrate", "Errore nell'esecuzione della query: " . $sql_entrate);
                     echo "<table width=\"100%\"  border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"text-align: center;\" >\n";
                     echo "<td>&nbsp;</td> \n";

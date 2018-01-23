@@ -86,7 +86,7 @@ $nodeId = intval($_REQUEST["nodeId"]);
 // query per fotografare situazione contabile del gasista  
 //USCITE
                 $conta_uscite = 0;
-                $sql_uscite = " select B.importo, D.nm_nome, C.ds_nota, C.dt_pagamento from movimenti as B, pagamenti as C, fornitori as D  where C.id=B.id_pagamento and C.id_fornitore=D.id and id_gasista  = " . $nodeId . " order by C.dt_pagamento desc";
+                $sql_uscite = " select B.importo, D.nm_nome, C.ds_nota, C.dt_ordine from movimenti as B, ordini as C, fornitori as D  where C.id=B.id_ordine and C.id_fornitore=D.id and id_gasista  = " . $nodeId . " order by C.dt_ordine desc";
                 $result = mysql_query($sql_uscite, $cnn) or doError("sql_uscite", "Errore nell'esecuzione della query: " . $sql_uscite);
                 echo "<table width=\"100%\"  border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"text-align: center;\" >\n";
                 echo "<hr noshade size='1' color='$leadcolor' style='dot'>";
@@ -98,8 +98,8 @@ $nodeId = intval($_REQUEST["nodeId"]);
                     $importo = $row["importo"];
                     $nm_nome = $row["nm_nome"];
                     $ds_nota = $row["ds_nota"];
-                    $dt_pagamento = $row["dt_pagamento"];
-                    echo "<tr> <td colspan=5>$importo </td><td colspan=5>$nm_nome </td><td colspan=5>$ds_nota </td><td colspan=5>$dt_pagamento </td></tr> \n";
+                    $dt_ordine = $row["dt_ordine"];
+                    echo "<tr> <td colspan=5>$importo </td><td colspan=5>$nm_nome </td><td colspan=5>$ds_nota </td><td colspan=5>$dt_ordine </td></tr> \n";
                     $conta_uscite = $conta_uscite + $importo;
                 }
                 $conta_uscite = round($conta_uscite, 2);

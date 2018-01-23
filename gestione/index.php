@@ -55,8 +55,8 @@ $targetList[] = array("users", "Gasisti");
 $targetList[] = array("fornitori", "Fornitori");
 $targetList[] = array("causali", "Causali");
 $targetList[] = array("versamenti", "Versamenti C/C");
-$targetList[] = array("pagamenti", "Pagamenti C/C");
-$targetList[] = array("v_pagamenti", "Pagamenti C/C con conteggio (più lento)");
+$targetList[] = array("ordini", "Ordini C/C");
+$targetList[] = array("v_ordini", "Ordini C/C con conteggio (più lento)");
 $targetList[] = array("movimenti", "Movimenti dei Gasisti");
 
 switch ($target) {
@@ -75,14 +75,14 @@ switch ($target) {
         $selectedSection = "versamenti";
         $excludeColumns = array("id");
         break;
-    case "pagamenti":
+    case "ordini":
         $onlyAdmin = false;
-        $selectedSection = "pagamenti";
+        $selectedSection = "ordini";
         $excludeColumns = array("id");
         break;
-    case "v_pagamenti":
+    case "v_ordini":
         $onlyAdmin = false;
-        $selectedSection = "v_pagamenti";
+        $selectedSection = "v_ordini";
         $excludeColumns = array("id");
         break;
     case "movimenti":
@@ -132,7 +132,7 @@ foreach ($targetList as $t) {
     if ($t[0] == $target) {
         $style = "background-color: #ff6666;";
     }
-    if ($t[0] == "versamenti" | $t[0] == "pagamenti" | $t[0] == "v_pagamenti" | $t[0] == "movimenti") {
+    if ($t[0] == "versamenti" | $t[0] == "ordini" | $t[0] == "v_ordini" | $t[0] == "movimenti") {
         $style1 = "margin-left:100px;font-color:#ff6666;";
     }
     $str = "<p style=\"$style;$style1;margin-bottom:4px;margin-top:4px\"><a href=\"?sec=" . $t[0] . "\">" . $t[1] . "</a></p>";
@@ -274,7 +274,7 @@ if ($target != "") {
     if (count($tableData) > 0) {
         for ($i = 0; $i < count($tableData); $i++) {
             $bgcolor = "";
-            if ($target == "v_pagamenti" ) {
+            if ($target == "v_ordini" ) {
                 if ($tableData[$i]['diff'] > 0) {
                     $bgcolor = 'pink';
                 } elseif (!$tableData[$i]['diff'] || $tableData[$i]['diff'] < 0) {
@@ -289,7 +289,7 @@ if ($target != "") {
 
                 if ($target == "users" && getBilancio($cnn, $tableData[$i][$definition["key"]]) != 0) {
                     echo getCmAdminBlockIcons("edit_only", "param1=$selectedSection", $tableData[$i][$definition["key"]]);
-                } else if ( /*($target == "pagamenti" || $target == "movimenti") && */
+                } else if ( /*($target == "ordini" || $target == "movimenti") && */
                     !$isAdmin && $isCont
                 ) {
                     echo getCmAdminBlockIcons("edit_only", "param1=$selectedSection", $tableData[$i][$definition["key"]]);

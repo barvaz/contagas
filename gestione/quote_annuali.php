@@ -49,15 +49,15 @@ if(!$userData["fl_admin"])
 }
 $curDate = date("Y-m-d H:i:s");
 $description = 'quota annuale ' . date("Y");
-//insert new entry in pagamenti
+//insert new entry in ordini
 $ini = "../conf/gestione.ini.php";
-$definition = getDefinition($cnn, $ini, 'pagamenti');
+$definition = getDefinition($cnn, $ini, 'ordini');
 $pagamData=array();
 $pagamData['id_fornitore'] = 4; // spese GAS
 $pagamData['importo'] = 0; // to update after
 $pagamData['id_causale'] = 2; // quote annuali
 $pagamData['ds_nota'] = $description; // quote annuali
-$pagamData['dt_pagamento'] = date('d-m-Y');
+$pagamData['dt_ordine'] = date('d-m-Y');
 $otherValues["dt_ins"] = $curDate;
 $otherValues["dt_agg"] = $curDate;
 $newValues = setValues($definition, "", $pagamData, true);
@@ -82,7 +82,7 @@ foreach($gasisti as $gasista){
     $movData=array();
     $movData['id_gasista'] = $nodeId;
     $movData['importo'] = QUOTA_ANNUALE; // quota singola
-    $movData['id_pagamento'] = $pagamId; // quote annuali
+    $movData['id_ordine'] = $pagamId; // quote annuali
     $movData['id_autore'] = 0; // utente GAS
     $movData['ds_nota'] = $description; // quote annuali
 
@@ -94,7 +94,7 @@ foreach($gasisti as $gasista){
 }
 
 $pagamData['importo'] = $totaleQuote; // new import
-$definition = getDefinition($cnn, $ini, 'pagamenti');
+$definition = getDefinition($cnn, $ini, 'ordini');
 $newValues = setValues($definition, "", $pagamData, true);
 $sql = getUpdateQuery($definition["table"], $newValues, $otherValues, $excludeValues);//array("dt_ins","dt_agg"));
 $sql .= " WHERE " . $definition["key"] . " = $pagamId";

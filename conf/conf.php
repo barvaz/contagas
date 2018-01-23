@@ -19,7 +19,7 @@ header ("cache-control: no-cache, must-revalidate");
 header ("pragma: no-cache");
 
 error_reporting(E_ALL ^ E_NOTICE);
-ini_set("display_errors", TRUE);
+ini_set("display_errors", false);
 
 // numero risultati per pagina
 define("PAGE_SIZE", 20);
@@ -28,15 +28,15 @@ define ("USERNAME_CASE_SESITIVE", true);
 // al momento la crittografia della password non è implementata
 define ("USERPASSWORD_CRYPT", false);
 
-define("DEBUG_ENABLE", false);
+define("DEBUG_ENABLE", true);
 
 define("QUOTA_ANNUALE", 10);
 
 // parametri per il DB MySQL
 define ("DB_HOST","localhost");
 define ("DB_USER","root");
-define ("DB_PWD","mysql");
-define ("DB_NAME","gasdelsole");
+define ("DB_PWD","root");
+define ("DB_NAME","contagas");
 
 // parametri per la spedizione delle email
 // funziona bene con GMail

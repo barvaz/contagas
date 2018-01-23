@@ -68,9 +68,9 @@ switch ($param1){
 		$selectedSection = "versamenti";
 		$title = "modifica versamento";
 		break;
-	case "pagamenti":
-		$selectedSection = "pagamenti";
-		$title = "modifica pagamento";
+	case "ordini":
+		$selectedSection = "ordini";
+		$title = "modifica ordine";
 		break;
 	case "movimenti":
 		$selectedSection = "movimenti";
@@ -179,13 +179,13 @@ if(count($definition) > 0)
 // query per fotografare situazione contabile del conto  
 //USCITE
            $conta_uscite=0;
-           $sql_uscite = "select importo from pagamenti";
+           $sql_uscite = "select importo from ordini";
                 $result = mysql_query($sql_uscite, $cnn) or doError("sql_uscite","Errore nell'esecuzione della query: " . $sql_uscite);
                 while ($row = mysql_fetch_assoc($result)){
                  $importo=$row["importo"];
                  $nm_nome=$row["nm_nome"];
                  $ds_nota=$row["ds_nota"];
-                 $dt_pagamento=$row["dt_pagamento"];
+                 $dt_ordine=$row["dt_ordine"];
                  $conta_uscite=$conta_uscite+$importo;
                 }
                 mysql_free_result($result);
@@ -221,7 +221,7 @@ $ts = date("Y-m-d");
                  $conta_ingressi=$conta_ingressi+$importo;
                 }
                 mysql_free_result($result);
-           //$sql_quote = "select importo from movimenti where id_pagamento=12";
+           //$sql_quote = "select importo from movimenti where id_ordine=12";
            $sql_quote = "select importo from versamenti where id_causale=2";
                 $result = mysql_query($sql_quote, $cnn) or doError("sql_quote","Errore nell'esecuzione della query: " . $sql_quote);
                 while ($row = mysql_fetch_assoc($result)){
@@ -229,7 +229,7 @@ $ts = date("Y-m-d");
                  $conta_quote=$conta_quote+$importo;
                 }
                 mysql_free_result($result);
-           $sql_spese = "select importo from pagamenti where id_causale in (4,6)";
+           $sql_spese = "select importo from ordini where id_causale in (4,6)";
                 $result = mysql_query($sql_spese, $cnn) or doError("sql_spese","Errore nell'esecuzione della query: " . $sql_spese);
                 while ($row = mysql_fetch_assoc($result)){
                  $importo=$row["importo"];

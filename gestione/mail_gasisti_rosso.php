@@ -65,9 +65,9 @@ switch ($param1) {
         $selectedSection = "versamenti";
         $title = "modifica versamento";
         break;
-    case "pagamenti":
-        $selectedSection = "pagamenti";
-        $title = "modifica pagamento";
+    case "ordini":
+        $selectedSection = "ordini";
+        $title = "modifica ordine";
         break;
     case "movimenti":
         $selectedSection = "movimenti";
@@ -100,7 +100,7 @@ foreach ($gasisti as $gasista) {
     // query per fotografare situazione contabile del gasista
     //USCITE
     $conta_uscite = 0;
-    $sql_uscite = " select sum(B.importo) uscite from movimenti as B, pagamenti as C, fornitori as D  where C.id=B.id_pagamento and C.id_fornitore=D.id and id_gasista  = " . $nodeId . " order by C.dt_pagamento desc";
+    $sql_uscite = " select sum(B.importo) uscite from movimenti as B, ordini as C, fornitori as D  where C.id=B.id_ordine and C.id_fornitore=D.id and id_gasista  = " . $nodeId . " order by C.dt_ordine desc";
     $result = mysql_query($sql_uscite, $cnn) or doError("sql_uscite", "Errore nell'esecuzione della query: " . $sql_uscite);
 
     while ($row = mysql_fetch_assoc($result)) {

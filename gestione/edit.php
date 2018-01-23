@@ -80,10 +80,10 @@ switch ($param1){
 		$selectedSection = "versamenti";
 		$title = "modifica versamento";
 		break;
-	case "pagamenti":
-	case "v_pagamenti":
-		$selectedSection = "v_pagamenti";
-		$title = "modifica pagamento";
+	case "ordini":
+	case "v_ordini":
+		$selectedSection = "v_ordini";
+		$title = "modifica ordine";
 		break;
 	case "movimenti":
 		$selectedSection = "movimenti";
@@ -210,7 +210,7 @@ if(count($definition) > 0)
 			$field = $definition["fields"][$i];
 			$iniItem = $definition[$field];
 			$type = $iniItem["type"];
-			if ($param1 == 'pagamenti' || $param1 == 'v_pagamenti'){
+			if ($param1 == 'ordini' || $param1 == 'v_ordini'){
 				if(($field == 'diff') || ($field == 'tot_movimenti')){
 					$iniItem["ro"]=true;
 				}

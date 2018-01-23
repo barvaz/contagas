@@ -85,11 +85,11 @@ switch ($param1){
 		$table = "versamenti";
 		$title = "modifica versamento";
 		break;
-	case "v_pagamenti":
-	case "pagamenti":
-		$selectedSection = "pagamenti";
-		$table = "pagamenti";
-		$title = "modifica pagamento";
+	case "v_ordini":
+	case "ordini":
+		$selectedSection = "ordini";
+		$table = "ordini";
+		$title = "modifica ordine";
 		break;
 	case "movimenti":
 		$selectedSection = "movimenti";
@@ -130,7 +130,7 @@ switch ($action)
 			$tmp = str_replace(',', '.', $tmp);
 			$newValues['importo']['value'] = $tmp;
 		}
-		if($param1 == "versamenti" || $param1 == "pagamenti" || $param1 == "v_pagamenti" || $param1 == "movimenti")
+		if($param1 == "versamenti" || $param1 == "ordini" || $param1 == "v_ordini" || $param1 == "movimenti")
 		{
 			if($action == "new"){
 				$otherValues["id_autore"] = $userId;
@@ -174,7 +174,7 @@ switch ($action)
                 $excludeValues[] = "fl_admin";
                 $excludeValues[] = "fl_contabile";
             }
-            if(($param1 == 'v_pagamenti' || $param1 == 'pagamenti') && !$isAdmin){
+            if(($param1 == 'v_ordini' || $param1 == 'ordini') && !$isAdmin){
                 $excludeValues[] = "fl_paid";
             }
 			$otherValues["dt_agg"] = $curDate;

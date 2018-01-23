@@ -182,11 +182,11 @@ dt_agg_label=data aggiornamento
 dt_agg_type=text
 dt_agg_ro=true
 
-[pagamenti]
-table=pagamenti
+[ordini]
+table=ordini
 key=id
-orderby="dt_pagamento desc"
-fields=id,id_fornitore,importo,id_causale,ds_nota,fl_open,fl_paid,fl_splitted,id_autore,dt_pagamento,dt_ins,dt_agg
+orderby="dt_ordine desc"
+fields=id,id_fornitore,importo,id_causale,ds_nota,fl_open,fl_paid,fl_splitted,id_autore,dt_ordine,dt_ins,dt_agg
 
 id_ro=true
 
@@ -194,9 +194,9 @@ importo_type=text
 importo_label=importo
 importo_required=true
 
-dt_pagamento_type=text
-dt_pagamento_label=data pagamento
-dt_pagamento_required=true
+dt_ordine_type=text
+dt_ordine_label=data ordine
+dt_ordine_required=true
 
 ds_nota_type=text
 ds_nota_label=descrizione
@@ -257,11 +257,11 @@ dt_agg_label=data aggiornamento
 dt_agg_type=text
 dt_agg_ro=true
 
-[v_pagamenti]
-table=v_pagamenti
+[v_ordini]
+table=v_ordini
 key=id
-orderby="dt_pagamento desc"
-fields=id,id_fornitore,importo,id_causale,ds_nota,fl_open,fl_paid,fl_splitted,id_autore,dt_pagamento,dt_ins,dt_agg,diff,tot_movimenti
+orderby="dt_ordine desc"
+fields=id,id_fornitore,importo,id_causale,ds_nota,fl_open,fl_paid,fl_splitted,id_autore,dt_ordine,dt_ins,dt_agg,diff,tot_movimenti
 
 id_ro=true
 
@@ -269,9 +269,9 @@ importo_type=text
 importo_label=importo
 importo_required=true
 
-dt_pagamento_type=text
-dt_pagamento_label=data pagamento
-dt_pagamento_required=true
+dt_ordine_type=text
+dt_ordine_label=data ordine
+dt_ordine_required=true
 
 ds_nota_type=text
 ds_nota_label=descrizione
@@ -336,7 +336,7 @@ dt_agg_ro=true
 table=movimenti
 key=id
 orderby=id desc
-fields=id,id_gasista,id_pagamento,importo,ds_nota,id_autore,dt_ins,dt_agg
+fields=id,id_gasista,id_ordine,importo,ds_nota,id_autore,dt_ins,dt_agg
 
 id_ro=true
 
@@ -360,17 +360,17 @@ id_gasista_combo_emptyline=false
 id_gasista_combo_filter="fl_attivo=1"
 id_gasista_multiple=FALSE
 
-id_pagamento_type=combo
-id_pagamento_label=pagamento
-id_pagamento_required=true
-id_pagamento_combo_source=table
-id_pagamento_combo_lookup=pagamenti
-id_pagamento_combo_key=id
-id_pagamento_combo_value=dt_pagamento,ds_nota
-id_pagamento_combo_order=dt_pagamento desc,ds_nota
-id_pagamento_combo_filter="fl_splitted=0"
-id_pagamento_combo_emptyline=TRUE
-id_pagamento_multiple=FALSE
+id_ordine_type=combo
+id_ordine_label=ordine
+id_ordine_required=true
+id_ordine_combo_source=table
+id_ordine_combo_lookup=ordini
+id_ordine_combo_key=id
+id_ordine_combo_value=dt_ordine,ds_nota
+id_ordine_combo_order=dt_ordine desc,ds_nota
+id_ordine_combo_filter="fl_splitted=0"
+id_ordine_combo_emptyline=TRUE
+id_ordine_multiple=FALSE
 
 id_autore_type=combo
 id_autore_label=autore
