@@ -186,7 +186,7 @@ dt_agg_ro=true
 table=ordini
 key=id
 orderby="dt_ordine desc"
-fields=id,id_fornitore,importo,id_causale,ds_nota,fl_open,fl_paid,fl_splitted,id_autore,dt_ordine,dt_ins,dt_agg
+fields=id,id_fornitore,importo,id_causale,ds_nota,fl_open,fl_paid,fl_splitted,fl_closed,id_autore,dt_ordine,dt_ins,dt_agg
 
 id_ro=true
 
@@ -213,6 +213,10 @@ fl_paid_defaultvalue=0
 fl_splitted_type=checkbox
 fl_splitted_label=ordine ripartito
 fl_splitted_defaultvalue=0
+
+fl_closed_type=checkbox
+fl_closed_label=ordine chiuso
+fl_closed_defaultvalue=0
 
 id_fornitore_type=combo
 id_fornitore_label=fornitore
@@ -261,7 +265,7 @@ dt_agg_ro=true
 table=v_ordini
 key=id
 orderby="dt_ordine desc"
-fields=id,id_fornitore,importo,id_causale,ds_nota,fl_open,fl_paid,fl_splitted,id_autore,dt_ordine,dt_ins,dt_agg,diff,tot_movimenti
+fields=id,id_fornitore,importo,id_causale,ds_nota,fl_open,fl_paid,fl_splitted,fl_closed,id_autore,dt_ordine,dt_ins,dt_agg,diff,tot_movimenti
 
 id_ro=true
 
@@ -288,6 +292,10 @@ fl_paid_defaultvalue=0
 fl_splitted_type=checkbox
 fl_splitted_label=ordine ripartito
 fl_splitted_defaultvalue=0
+
+fl_closed_type=checkbox
+fl_closed_label=ordine chiuso
+fl_closed_defaultvalue=0
 
 id_fornitore_type=combo
 id_fornitore_label=fornitore

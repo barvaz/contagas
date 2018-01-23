@@ -179,7 +179,7 @@ if(count($definition) > 0)
 // query per fotografare situazione contabile del conto  
 //USCITE
            $conta_uscite=0;
-           $sql_uscite = "select importo from ordini";
+           $sql_uscite = "select importo from ordini where fl_paid=1";
                 $result = mysql_query($sql_uscite, $cnn) or doError("sql_uscite","Errore nell'esecuzione della query: " . $sql_uscite);
                 while ($row = mysql_fetch_assoc($result)){
                  $importo=$row["importo"];
@@ -229,7 +229,7 @@ $ts = date("Y-m-d");
                  $conta_quote=$conta_quote+$importo;
                 }
                 mysql_free_result($result);
-           $sql_spese = "select importo from ordini where id_causale in (4,6)";
+           $sql_spese = "select importo from ordini where id_causale in (4,6) and fl_paid=1";
                 $result = mysql_query($sql_spese, $cnn) or doError("sql_spese","Errore nell'esecuzione della query: " . $sql_spese);
                 while ($row = mysql_fetch_assoc($result)){
                  $importo=$row["importo"];
