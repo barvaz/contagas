@@ -1,4 +1,4 @@
-<?
+<?php
 /*
    Copyright 2013 Amit Moravchick amit.moravchick@gmail.com
 
@@ -87,12 +87,12 @@ $definition = getDefinition($cnn, $ini, $selectedSection);
 $attr = "";
 
 $sql_gasisti = "select id,nm_nome,nm_cognome,ds_email,ds_telefono,indirizzo_1,indirizzo_2,username,password,fl_admin,fl_contabile,fl_attivo,dt_ins,dt_agg from users where fl_attivo = 1 and id >= $fromId order by id desc";
-$result = mysql_query($sql_gasisti, $cnn) or doError("sql_gasisti", "Errore nell'esecuzione della query: " . $sql_gasisti);
+$result = mysqli_query($cnn, $sql_gasisti) or doError("sql_gasisti", "Errore nell'esecuzione della query: " . $sql_gasisti);
 $gasisti = array();
-while ($row = mysql_fetch_assoc($result)) {
+while ($row = mysqli_fetch_assoc($result)) {
     $gasisti[] = $row;
 }
-mysql_free_result($result);
+mysqli_free_result($result);
 
 foreach ($gasisti as $gasista) {
     $nodeId = $gasista['id'];
@@ -101,21 +101,21 @@ foreach ($gasisti as $gasista) {
     //USCITE
     $conta_uscite = 0;
     $sql_uscite = " select sum(B.importo) uscite from movimenti as B, ordini as C, fornitori as D  where C.id=B.id_ordine and C.id_fornitore=D.id and id_gasista  = " . $nodeId . " order by C.dt_ordine desc";
-    $result = mysql_query($sql_uscite, $cnn) or doError("sql_uscite", "Errore nell'esecuzione della query: " . $sql_uscite);
+    $result = mysqli_query($cnn, $sql_uscite) or doError("sql_uscite", "Errore nell'esecuzione della query: " . $sql_uscite);
 
-    while ($row = mysql_fetch_assoc($result)) {
+    while ($row = mysqli_fetch_assoc($result)) {
         $conta_uscite = $row["uscite"];
     }
     $conta_uscite = round($conta_uscite, 2);
-    mysql_free_result($result);
+    mysqli_free_result($result);
     $conta_entrate = 0;
     $sql_entrate = " select sum(A.importo) entrate from versamenti as A, causali as B where A.id_causale=B.id and id_gasista  = " . $nodeId . " order by A.dt_versamento desc";
-    $result = mysql_query($sql_entrate, $cnn) or doError("sql_entrate", "Errore nell'esecuzione della query: " . $sql_entrate);
-    while ($row = mysql_fetch_assoc($result)) {
+    $result = mysqli_query($cnn, $sql_entrate) or doError("sql_entrate", "Errore nell'esecuzione della query: " . $sql_entrate);
+    while ($row = mysqli_fetch_assoc($result)) {
         $conta_entrate = $row["entrate"];
     }
     $conta_entrate = round($conta_entrate, 2);
-    mysql_free_result($result);
+    mysqli_free_result($result);
     //TOTALI
     $euro_tot = round(($conta_entrate - $conta_uscite), 2);
     if ($euro_tot <= -60.0) {
@@ -128,7 +128,7 @@ foreach ($gasisti as $gasista) {
 
         $html .= "Tenere il conto in attivo è fondamentale per consentire al GAS di funzionare nel modo migliore e più corretto, pagando puntualmente i fornitori.<br/><br/>\n\n";
 
-        $html .= "Ti suggeriamo quindi di provvedere al più presto a rifornire il conto comune, effettuando un bonifico su queste coordinate: IBAN IT91X0308301607000000035256<br/><br/>\n\n";
+        $html .= "Ti suggeriamo quindi di provvedere al più presto a rifornire il conto comune, effettuando un bonifico su queste coordinate: IT38H0501801600000016673717 - intestato a Gas Del Sole<br/><br/>\n\n";
 
         $html .= "Ricordati di segnalarci il tuo bonifico, compilando questo form: <br/>\n";
         $html .= "https://docs.google.com/spreadsheet/viewform?formkey=dGNzZEJJRW5TbkZWVE9xd2ViNTRVYmc6MQ#gid=8<br/><br/>\n";
@@ -144,11 +144,11 @@ foreach ($gasisti as $gasista) {
         $mail->IsSMTP();
         $mail->CharSet = 'utf-8';
         $mail->Mailer = "smtp";
-        $mail->Host = "smtp.gmail.com";
+        $mail->Host = "smtp.sendgrid.net";
         $mail->SMTPAuth = true;
         $mail->SMTPSecure = "tls";
         $mail->SMTPDebug = 0;
-        $mail->Port = 25;
+        $mail->Port = 587;
         $mail->Username = EMAIL_SENDER_USER;
         $mail->Password = EMAIL_SENDER_PWD;
         $mail->From = EMAIL_SENDER;
@@ -158,7 +158,7 @@ foreach ($gasisti as $gasista) {
         if ($gasista['ds_email'] != "-") {
 
             $arrMail = explode(';', $gasista['ds_email']);
-//            $arrMail = explode(';', 'amit.moravchick@gmail.com');
+            // $arrMail = explode(';', 'amit.moravchick@gmail.com');
             if (!empty($arrMail)) {
                 foreach ($arrMail as $indirizzo) {
                     $mail->AddAddress($indirizzo);

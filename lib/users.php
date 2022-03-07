@@ -1,4 +1,4 @@
-<?
+<?php
 /*
    Copyright 2013 Amit Moravchick amit.moravchick@gmail.com
 
@@ -40,8 +40,8 @@ function isLogged(&$cnn)
 		{
 			$sql = "SELECT fl_attivo FROM users WHERE id = $userId";
 			//debug($sql);
-			$result = mysql_query($sql, $cnn) or doError ("sql", "Errore nell'esecuzione della query SQL: " . $sql);
-			while($row = mysql_fetch_assoc($result))
+			$result = mysqli_query($cnn, $sql) or doError ("sql", "Errore nell'esecuzione della query SQL: " . $sql);
+			while($row = mysqli_fetch_assoc($result))
 			{
 				if($row["fl_attivo"])
 				{
@@ -52,7 +52,7 @@ function isLogged(&$cnn)
 					$userStatus = FALSE;
 				}
 			}
-			mysql_free_result($result);
+			mysqli_free_result($result);
 		}
 	}
 	return $userStatus;
@@ -71,9 +71,9 @@ function login(&$cnn, $userName, $userPassword, $caseSensitive = FALSE, $encrypt
 	{
 		$sql = "SELECT id, username, password FROM users WHERE username = '$userName' AND fl_attivo = 1";
 		//debug($sql);
-		$result = mysql_query($sql, $cnn) or doError ("sql", "Errore nell'esecuzione della query SQL: " . $sql);
+		$result = mysqli_query($cnn, $sql) or doError ("sql", "Errore nell'esecuzione della query SQL: " . $sql);
 		$found = FALSE;
-		while ($row = mysql_fetch_assoc($result))
+		while ($row = mysqli_fetch_assoc($result))
 		{
 			if($caseSensitive)
 			{
@@ -84,7 +84,7 @@ function login(&$cnn, $userName, $userPassword, $caseSensitive = FALSE, $encrypt
 			}
 			else
 			{
-				if(mysql_num_rows($result) == 1)
+				if(mysqli_num_rows($result) == 1)
 				{
 					$found = TRUE;
 				}
@@ -96,7 +96,7 @@ function login(&$cnn, $userName, $userPassword, $caseSensitive = FALSE, $encrypt
 				$tmpPassword = $row["password"];
 			}
 		}
-		mysql_free_result($result);
+		mysqli_free_result($result);
 		if($tmpUserId > 0)
 		{
 			if($encrypt)
@@ -149,12 +149,12 @@ function getUserData(&$db, $userId){
 	{
 		$query = "SELECT * FROM users WHERE id = $userId AND fl_attivo = 1";
 		//debug($query);
-		$result = mysql_query($query, $db) or doError ("sql", "Errore nell'esecuzione della query SQL: " . $query);
-		while($row = mysql_fetch_assoc($result))
+		$result = mysqli_query($db, $query) or doError ("sql", "Errore nell'esecuzione della query SQL: " . $query);
+		while($row = mysqli_fetch_assoc($result))
 		{
 			$userData = $row;
 		}
-		mysql_free_result($result);
+		mysqli_free_result($result);
 	}
 	return $userData;
 }
@@ -163,12 +163,12 @@ function cambiaPassword(&$cnn, $userId, $oldPass, $newPass)
 {
 	$sql = "SELECT password  FROM users WHERE id = $userId AND fl_attivo = 1";
 	//debug($sql);
-	$result = mysql_query($sql, $cnn) or doError ("sql", "Errore nell'esecuzione della query SQL: " . $query);
-	while($row = mysql_fetch_assoc($result))
+	$result = mysqli_query($cnn, $sql) or doError ("sql", "Errore nell'esecuzione della query SQL: " . $sql);
+	while($row = mysqli_fetch_assoc($result))
 	{
 		$pass = $row["password"];
 	}
-	mysql_free_result($result);
+	mysqli_free_result($result);
 	if(USERPASSWORD_CRYPT)
 	{
 		if(crypt($oldPass, $pass) == $pass)
@@ -196,6 +196,6 @@ function cambiaPassword(&$cnn, $userId, $oldPass, $newPass)
 	
 	$sql = "UPDATE users SET password = '" . addslashes($newPass) . "' WHERE id = $userId";
 	//debug($sql);
-	mysql_query($sql, $cnn) or doError("sql", $sql);
+    mysqli_query($cnn, $sql) or doError("sql", $sql);
 }
 ?>

@@ -1,4 +1,4 @@
-<?
+<?php
 /*
    Copyright 2013 Amit Moravchick amit.moravchick@gmail.com
 
@@ -44,8 +44,8 @@ function getValsFromDB(&$cnn, $table, $order, $itemId, $itemName, $selected, $mu
 			$sql .= " order by " . $order;
 		}
 		logWrite($sql, "sql");
-		$rs = mysql_query($sql, $cnn);
-		while($row = mysql_fetch_array($rs)){
+		$rs = mysqli_query($cnn, $sql);
+		while($row = mysqli_fetch_array($rs)){
 			for($i = 0; $i < count($lista); $i++){
 				//$combo .= substr(($row[$lista[$i]]),0,50) . " ";
 				$combo .= $row[$lista[$i]] . " ";
@@ -54,7 +54,7 @@ function getValsFromDB(&$cnn, $table, $order, $itemId, $itemName, $selected, $mu
 				$combo .= "<br/>";
 			}
 		}
-		mysql_free_result($rs);
+		mysqli_free_result($rs);
 	}
 	return $combo;
 }
@@ -91,8 +91,8 @@ function getComboFromDB($name, &$cnn, $table, $order, $itemId, $itemName, $selec
 		}
 		$combo .= ">&nbsp;</option>\n";
 	}
-	$rs = mysql_query($sql, $cnn);
-	while($row = mysql_fetch_array($rs)){
+	$rs = mysqli_query($cnn, $sql);
+	while($row = mysqli_fetch_array($rs)){
 		$combo .= "<option value=\"" . $row[$itemId] . "\" ";
 		for($i = 0; $i < count($items); $i++){
 			if(" " . $items[$i] == " " . $row[$itemId]){
@@ -107,7 +107,7 @@ function getComboFromDB($name, &$cnn, $table, $order, $itemId, $itemName, $selec
 		}
 		$combo .= "</option>\n";
 	}
-	mysql_free_result($rs);
+	mysqli_free_result($rs);
 	$combo .= "</select>\n";
 	return $combo;
 }
@@ -139,9 +139,9 @@ function getComboFromSql($name, &$cnn, $sql, $itemId, $itemName, $selected, $mul
 		}
 		$combo .= ">&nbsp;</option>\n";
 	}
-	$rs = mysql_query($sql, $cnn);
+	$rs = mysqli_query($cnn, $sql);
 	
-	while($row = mysql_fetch_array($rs)){
+	while($row = mysqli_fetch_array($rs)){
 		$combo .= "<option value=\"" . $row[$itemId] . "\" ";
 		for($i = 0; $i < count($items); $i++){
 			if(" " . $items[$i] == " " . $row[$itemId]){
@@ -156,7 +156,7 @@ function getComboFromSql($name, &$cnn, $sql, $itemId, $itemName, $selected, $mul
 		}
 		$combo .= "</option>\n";
 	}
-	mysql_free_result($rs);
+	mysqli_free_result($rs);
 	$combo .= "</select>\n";
 	return $combo;
 }
@@ -184,8 +184,8 @@ function getCheckboxGroupFromSql($name, &$cnn, $sql, $itemId, $itemName, $select
 
 	$j = 0;
 	logWrite($sql, "sql");
-	$rs = mysql_query($sql, $cnn);
-	while($row = mysql_fetch_array($rs)){
+	$rs = mysqli_query($cnn, $sql);
+	while($row = mysqli_fetch_array($rs)){
 		$itemName = $name;
 		if($multiple){
 			$itemName = $name . "_" . $j;
@@ -204,7 +204,7 @@ function getCheckboxGroupFromSql($name, &$cnn, $sql, $itemId, $itemName, $select
 		$combo .= "<br/>\n";
 		$j ++;
 	}
-	mysql_free_result($rs);
+	mysqli_free_result($rs);
 	return $combo;
 }
 //

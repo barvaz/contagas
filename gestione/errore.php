@@ -1,4 +1,4 @@
-<?
+<?php
 /*
    Copyright 2013 Amit Moravchick amit.moravchick@gmail.com
 
@@ -29,7 +29,7 @@ $err = trim($_REQUEST["errorcode"]);
 
 <body>
 <h1><?=$errorTable[$err]?></h1>
-<?
+<?php
 include("../include/error.php");
 
 {

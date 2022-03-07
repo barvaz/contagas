@@ -1,4 +1,4 @@
-<?
+<?php
 /*
    Copyright 2013 Amit Moravchick amit.moravchick@gmail.com
 
@@ -88,12 +88,12 @@ $definition = getDefinition($cnn, $ini, $selectedSection);
 $attr = "";
 
 $sql_gasisti = "select id,nm_nome,nm_cognome,ds_email,ds_telefono,indirizzo_1,indirizzo_2,username,password,fl_admin,fl_contabile,fl_attivo,dt_ins,dt_agg from users where fl_attivo = 1 and id >= $fromId order by id desc";
-$result = mysql_query($sql_gasisti, $cnn) or doError("sql_gasisti", "Errore nell'esecuzione della query: " . $sql_gasisti);
+$result = mysqli_query($cnn, $sql_gasisti) or doError("sql_gasisti", "Errore nell'esecuzione della query: " . $sql_gasisti);
 $gasisti = array();
-while ($row = mysql_fetch_assoc($result)) {
+while ($row = mysqli_fetch_assoc($result)) {
     $gasisti[] = $row;
 }
-mysql_free_result($result);
+mysqli_free_result($result);
 
 foreach ($gasisti as $gasista) {
 //debug($gasista);	
@@ -105,7 +105,7 @@ foreach ($gasisti as $gasista) {
     $conta_uscite = 0;
     $sql_uscite = " select B.importo, D.nm_nome, C.ds_nota, C.dt_ordine from movimenti as B, ordini as C, fornitori as D  where C.id=B.id_ordine and C.id_fornitore=D.id and id_gasista  = " . $nodeId . " order by C.dt_ordine desc";
 //debug($sql_uscite);	           
-    $result = mysql_query($sql_uscite, $cnn) or doError("sql_uscite", "Errore nell'esecuzione della query: " . $sql_uscite);
+    $result = mysqli_query($cnn, $sql_uscite) or doError("sql_uscite", "Errore nell'esecuzione della query: " . $sql_uscite);
 
     $html .= "<table width=\"100%\"  border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"text-align: center;\" >\n";
     $html .= "<hr noshade size='1' color='$leadcolor' style='dot'>";
@@ -113,7 +113,7 @@ foreach ($gasisti as $gasista) {
     $html .= "<tr><b>ACQUISTI</b></tr>\n";
     $html .= "<hr noshade size='1' color='$leadcolor' style='dot'>";
     $html .= "<tr><td colspan=5>IMPORTO </td><td colspan=5>NOME </td><td colspan=5>DESCRIZIONE</td><td colspan=5>DATA PAGAMENTO </td> </tr>\n";
-    while ($row = mysql_fetch_assoc($result)) {
+    while ($row = mysqli_fetch_assoc($result)) {
         //debug($row);
         $importo = $row["importo"];
         $nm_nome = $row["nm_nome"];
@@ -123,20 +123,20 @@ foreach ($gasisti as $gasista) {
         $conta_uscite = $conta_uscite + $importo;
     }
     $conta_uscite = round($conta_uscite, 2);
-    mysql_free_result($result);
+    mysqli_free_result($result);
     $html .= "<td>&nbsp;</td> \n";
     $html .= "</table>\n";
     //ENTRATE
     $conta_entrate = 0;
     $sql_entrate = " select A.importo, A.dt_versamento,B.ds_causale from versamenti as A, causali as B where A.id_causale=B.id and id_gasista  = " . $nodeId . " order by A.dt_versamento desc";
-    $result = mysql_query($sql_entrate, $cnn) or doError("sql_entrate", "Errore nell'esecuzione della query: " . $sql_entrate);
+    $result = mysqli_query($cnn, $sql_entrate) or doError("sql_entrate", "Errore nell'esecuzione della query: " . $sql_entrate);
     $html .= "<table width=\"100%\"  border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"text-align: center;\" >\n";
     $html .= "<td>&nbsp;</td> \n";
     $html .= "<hr noshade size='1' color='$leadcolor' style='dot'>";
     $html .= "<tr><b>BONIFICI</b></tr>\n";
     $html .= "<hr noshade size='1' color='$leadcolor' style='dot'>";
     $html .= "<tr><td colspan=5>IMPORTO </td><td colspan=5>DESCRIZIONE</td><td colspan=5>DATA VERSAMENTO </td> </tr>\n";
-    while ($row = mysql_fetch_assoc($result)) {
+    while ($row = mysqli_fetch_assoc($result)) {
         $importo = $row["importo"];
         $ds_causale = $row["ds_causale"];
         $dt_versamento = $row["dt_versamento"];
@@ -144,7 +144,7 @@ foreach ($gasisti as $gasista) {
         $conta_entrate = $conta_entrate + $importo;
     }
     $conta_entrate = round($conta_entrate, 2);
-    mysql_free_result($result);
+    mysqli_free_result($result);
     $html .= "<td>&nbsp;</td> \n";
     $html .= "</table>\n";
     //TOTALI
@@ -176,11 +176,11 @@ foreach ($gasisti as $gasista) {
     $mail->IsSMTP();
     $mail->CharSet = 'utf-8';
     $mail->Mailer = "smtp";
-    $mail->Host = "smtp.gmail.com";
+    $mail->Host = "smtp.sendgrid.net";
     $mail->SMTPAuth = true;
     $mail->SMTPSecure = "tls";
     $mail->SMTPDebug = 0;
-    $mail->Port = 25;
+    $mail->Port = 587;
     $mail->Username = EMAIL_SENDER_USER;
     $mail->Password = EMAIL_SENDER_PWD;
     $mail->From = EMAIL_SENDER;

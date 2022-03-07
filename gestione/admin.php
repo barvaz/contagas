@@ -1,4 +1,4 @@
-<?
+<?php
 /*
    Copyright 2013 Amit Moravchick amit.moravchick@gmail.com
 
@@ -144,8 +144,8 @@ switch ($action)
 			
 			
 			$sql = getInsertQuery($definition["table"], $newValues, $otherValues, $excludeValues);//array("dt_ins","dt_agg"));
-			$result = mysql_query($sql, $cnn);
-			$sqlError = mysql_errno($cnn);
+			$result = mysqli_query($sql, $cnn);
+			$sqlError = mysqli_errno($cnn);
 			
 			if($sqlError)
 			{
@@ -159,7 +159,7 @@ switch ($action)
 					doError ("sql","Errore nell'esecuzione della query: " . $sql);
 				}
 			}
-			$nodeId = mysql_insert_id();
+			$nodeId = mysqli_insert_id($cnn);
 		}
 		else
 		{
@@ -183,7 +183,7 @@ switch ($action)
 			
 			$sql .= " WHERE " . $definition["key"] . " = $nodeId";
 			debug($sql);
-            $result = mysql_query($sql, $cnn) or doError("sql", "Errore nell'esecuzione della query: " . $sql);
+            $result = mysqli_query($cnn, $sql) or doError("sql", "Errore nell'esecuzione della query: " . $sql);
 		}
 			
 
@@ -191,10 +191,10 @@ switch ($action)
 	case "delete":
 		if($param1 == "users"){
 			$sql = "update `" . $definition["table"] . "` set fl_attivo = 0 where " . $definition["key"] . " = " . $nodeId;
-		$result = mysql_query($sql, $cnn) or doError("sql","Errore nell'esecuzione della query: " . $sql);
+		$result = mysqli_query($cnn, $sql) or doError("sql","Errore nell'esecuzione della query: " . $sql);
 		}else{
 			$sql = "delete from `" . $definition["table"] . "` where " . $definition["key"] . " = " . $nodeId;
-			$result = mysql_query($sql, $cnn) or doError("sql","Errore nell'esecuzione della query: " . $sql);	
+			$result = mysqli_query($cnn, $sql) or doError("sql","Errore nell'esecuzione della query: " . $sql);
 		}
 		
 		break;
@@ -204,7 +204,7 @@ switch ($action)
 <html>
 <head>
 
-<?
+<?php
 echo "<script language=\"javascript\">\n";
 echo "function chiudiAndRefresh(){\n";
 echo "opener.location.reload();\n";

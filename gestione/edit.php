@@ -1,4 +1,4 @@
-<?
+<?php
 /*
    Copyright 2013 Amit Moravchick amit.moravchick@gmail.com
 
@@ -127,7 +127,7 @@ $flTinyMCE = false;
 			</td>
 		</tr>
 	</table>
-<?
+<?php
 $validation = "";
 $vaidationItem = array();
 echo "<script>var items = Array();</script>\n";
@@ -171,7 +171,7 @@ echo GetInput("extended", "hidden", $param1);
 		</tr>
 		<tr style="background-color: #666666;">
 			<td>&nbsp;</td>
-			<td class="titolo w" colspan="3"><? echo $title; ?></td>
+			<td class="titolo w" colspan="3"><?php echo $title; ?></td>
 			<td>&nbsp;</td>
 		</tr>
 		<tr>
@@ -179,7 +179,7 @@ echo GetInput("extended", "hidden", $param1);
 			<td colspan="3">
 
 				<table width="100%" border="0" cellspacing="0" cellpadding="5" class="admintable">
-<?
+<?php
 if(count($definition) > 0)
 {
     $condition = $definition["key"] . " = $nodeId";
@@ -310,7 +310,7 @@ if(count($definition) > 0)
 				$("#<?php echo $field?>").val(val);
 			}});
 		});
-						</script><?
+						</script><?php
 					}
 					else
 					{
@@ -439,9 +439,9 @@ if(count($definition) > 0)
 					{
 						if($iniItem["config"] == "simple") {
 						?>
-							<?if(!$flTinyMCE){?>
+							<?php if(!$flTinyMCE){?>
 							<script type="text/javascript" src="../js/tiny_mce/tiny_mce.js"></script>
-						<?
+						<?php
 							$flTinyMCE = true;
 						}
 						?>
@@ -468,10 +468,10 @@ if(count($definition) > 0)
 								content_css : "../style/style.css"
 							});
 							</script>
-						<? }else { // "advanced" ?>
-							<? if(!$flTinyMCE){ ?>
+						<?php }else { // "advanced" ?>
+							<?php if(!$flTinyMCE){ ?>
 							<script type="text/javascript" src="../js/tiny_mce/tiny_mce.js"></script>
-							<?
+							<?php
 								$flTinyMCE = true;
 							}
 							?>
@@ -483,7 +483,7 @@ if(count($definition) > 0)
 								editor_selector : "<?=$field?>"
 							});
 							</script>
-						<? }
+						<?php }
 						echo GetHTMLArea($field, $iniItem["value"], $iniItem["width"], $iniItem["height"] );
 					}
 					else
@@ -526,7 +526,7 @@ if(count($definition) > 0)
 		</tr>
 		<tr>
 			<td colspan="5" style="height:30px; background-color: #666666" align="center" valign="middle" >
-<?
+<?php
 if(!$formReadOnly)
 {
 	echo "<input type=\"reset\" title=\"Annulla\" class=\"forms\">\n";
@@ -536,7 +536,7 @@ if(!$formReadOnly)
 			</td>
 		</tr>
 	</table>
-<?
+<?php
 echo "</form>\n";
 if(count($vaidationItem) > 0)
 {

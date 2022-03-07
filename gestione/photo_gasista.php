@@ -1,4 +1,4 @@
-<?
+<?php
 /*
    Copyright 2013 Amit Moravchick amit.moravchick@gmail.com
 
@@ -73,7 +73,7 @@ $nodeId = intval($_REQUEST["nodeId"]);
     </tr>
     <tr style="background-color: #666666;">
         <td>&nbsp;</td>
-        <td class="titolo w" colspan="3"><? echo $title; ?></td>
+        <td class="titolo w" colspan="3"><?php echo $title; ?></td>
         <td>&nbsp;</td>
     </tr>
     <tr>
@@ -81,20 +81,20 @@ $nodeId = intval($_REQUEST["nodeId"]);
         <td colspan="3">
 
             <table width="100%" border="0" cellspacing="0" cellpadding="5" class="admintable">
-                <?
+                <?php
 
 // query per fotografare situazione contabile del gasista  
 //USCITE
                 $conta_uscite = 0;
                 $sql_uscite = " select B.importo, D.nm_nome, C.ds_nota, C.dt_ordine from movimenti as B, ordini as C, fornitori as D  where C.id=B.id_ordine and C.id_fornitore=D.id and id_gasista  = " . $nodeId . " order by C.dt_ordine desc";
-                $result = mysql_query($sql_uscite, $cnn) or doError("sql_uscite", "Errore nell'esecuzione della query: " . $sql_uscite);
+                $result = mysqli_query($cnn, $sql_uscite) or doError("sql_uscite", "Errore nell'esecuzione della query: " . $sql_uscite);
                 echo "<table width=\"100%\"  border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"text-align: center;\" >\n";
                 echo "<hr noshade size='1' color='$leadcolor' style='dot'>";
                 echo "<td>&nbsp;</td> \n";
                 echo "<tr><b>ACQUISTI</b></tr>\n";
                 echo "<hr noshade size='1' color='$leadcolor' style='dot'>";
                 echo "<tr><td colspan=5>IMPORTO </td><td colspan=5>NOME </td><td colspan=5>DESCRIZIONE</td><td colspan=5>DATA PAGAMENTO </td> </tr>\n";
-                while ($row = mysql_fetch_assoc($result)) {
+                while ($row = mysqli_fetch_assoc($result)) {
                     $importo = $row["importo"];
                     $nm_nome = $row["nm_nome"];
                     $ds_nota = $row["ds_nota"];
@@ -103,20 +103,20 @@ $nodeId = intval($_REQUEST["nodeId"]);
                     $conta_uscite = $conta_uscite + $importo;
                 }
                 $conta_uscite = round($conta_uscite, 2);
-                mysql_free_result($result);
+                mysqli_free_result($result);
                 echo "<td>&nbsp;</td> \n";
                 echo "</table>\n";
 //ENTRATE
                 $conta_entrate = 0;
                 $sql_entrate = " select A.importo, A.dt_versamento,B.ds_causale from versamenti as A, causali as B where A.id_causale=B.id and id_gasista  = " . $nodeId . " order by A.dt_versamento desc";
-                $result = mysql_query($sql_entrate, $cnn) or doError("sql_entrate", "Errore nell'esecuzione della query: " . $sql_entrate);
+                $result = mysqli_query($cnn, $sql_entrate) or doError("sql_entrate", "Errore nell'esecuzione della query: " . $sql_entrate);
                 echo "<table width=\"100%\"  border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"text-align: center;\" >\n";
                 echo "<td>&nbsp;</td> \n";
                 echo "<hr noshade size='1' color='$leadcolor' style='dot'>";
                 echo "<tr><b>BONIFICI</b></tr>\n";
                 echo "<hr noshade size='1' color='$leadcolor' style='dot'>";
                 echo "<tr><td colspan=5>IMPORTO </td><td colspan=5>DESCRIZIONE</td><td colspan=5>DATA VERSAMENTO </td> </tr>\n";
-                while ($row = mysql_fetch_assoc($result)) {
+                while ($row = mysqli_fetch_assoc($result)) {
                     $importo = $row["importo"];
                     $ds_causale = $row["ds_causale"];
                     $dt_versamento = $row["dt_versamento"];
@@ -124,7 +124,7 @@ $nodeId = intval($_REQUEST["nodeId"]);
                     $conta_entrate = $conta_entrate + $importo;
                 }
                 $conta_entrate = round($conta_entrate, 2);
-                mysql_free_result($result);
+                mysqli_free_result($result);
                 echo "<td>&nbsp;</td> \n";
                 echo "</table>\n";
 //TOTALI

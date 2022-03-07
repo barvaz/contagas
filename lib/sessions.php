@@ -1,4 +1,4 @@
-<?
+<?php
 /*
    Copyright 2013 Amit Moravchick amit.moravchick@gmail.com
 
@@ -33,7 +33,7 @@ function startSession($cnn, $userId)
 	$tmpSessionId = generateSessionId();
 	$sql = "INSERT INTO sessions (sessid, userid, firstts, lastts) VALUES ('$tmpSessionId', $userId, $ts, $ts)";
 	//debug($sql);
-	$result = mysql_query($sql, $cnn) or doError ("sql", "Errore nell'esecuzione della query SQL: " . $sql);
+	$result = mysqli_query($cnn, $sql) or doError ("sql", "Errore nell'esecuzione della query SQL: " . $sql);
 	setSessionId($tmpSessionId, $ts);
 	return $tmpSessionId;
 }
@@ -47,21 +47,21 @@ function refreshSession(&$cnn)
 	{
 		$sql = "DELETE FROM titolo WHERE sessid  NOT IN (SELECT sessid  FROM sessions)";
 		debug($sql);
-		mysql_query($sql, $cnn) or doError ("sql", "Errore nell'esecuzione della query SQL: " . $sql);
+        mysqli_query($cnn, $sql) or doError ("sql", "Errore nell'esecuzione della query SQL: " . $sql);
 		
 		$sql = "DELETE FROM tmp_variazione WHERE sessid  NOT IN (SELECT sessid  FROM sessions)";
 		debug($sql);
-		mysql_query($sql, $cnn) or doError ("sql", "Errore nell'esecuzione della query SQL: " . $sql);
+        mysqli_query($cnn, $sql) or doError ("sql", "Errore nell'esecuzione della query SQL: " . $sql);
 	}
 	$sql = "DELETE FROM sessions WHERE lastts < $deltats";
 	//debug($sql);
-	mysql_query($sql, $cnn) or doError ("sql", "Errore nell'esecuzione della query SQL: " . $sql);
+    mysqli_query($cnn, $sql) or doError ("sql", "Errore nell'esecuzione della query SQL: " . $sql);
 	
 	if(strlen($sessionId) > 0)
 	{
 		$sql = "UPDATE sessions SET lastts = $ts WHERE sessid='$sessionId'";
 		//debug($sql);
-		$result = mysql_query($sql, $cnn) or doError ("sql", "Errore nell'esecuzione della query SQL: " . $sql);
+		$result = mysqli_query($cnn, $sql) or doError ("sql", "Errore nell'esecuzione della query SQL: " . $sql);
 		setSessionId($sessionId, $ts);
 	}
 }
@@ -74,7 +74,7 @@ function closeSession($cnn)
 	{
 		$sql = "DELETE FROM sessions WHERE sessid = '$sessionId'";
 		//debug($sql);
-		$result = mysql_query($sql, $cnn) or doError ("sql", "Errore nell'esecuzione della query SQL: " . $sql);
+		$result = mysqli_query($cnn, $sql) or doError ("sql", "Errore nell'esecuzione della query SQL: " . $sql);
 	}
 }
 //
@@ -137,12 +137,12 @@ function getSessionUserId(&$cnn)
 			{
 				$sql="SELECT userid FROM sessions WHERE sessid = '$sessionId'";
 				//debug($sql);
-				$result=mysql_query($sql, $cnn) or doError ("sql", "Errore nell'esecuzione della query " . $sql);
-				while($row = mysql_fetch_assoc($result))
+				$result=mysqli_query($cnn, $sql) or doError ("sql", "Errore nell'esecuzione della query " . $sql);
+				while($row = mysqli_fetch_assoc($result))
 				{
 					$userId = $row['userid'];
 				}
-				mysql_free_result($result);
+				mysqli_free_result($result);
 			}
 		}
 	}
@@ -165,12 +165,12 @@ function getSessionStatus(&$cnn)
 			$ts=time();
 			$sql = "SELECT lastts FROM sessions WHERE sessid='$sessionId'";
 			//debug($sql);
-			$result = mysql_query($sql, $cnn) or doError ("sql", "Errore nell'esecuzione della query SQL: " . $sql);
-			while($row=mysql_fetch_assoc($result))
+			$result = mysqli_query($cnn, $sql) or doError ("sql", "Errore nell'esecuzione della query SQL: " . $sql);
+			while($row=mysqli_fetch_assoc($result))
 			{
 				$lastts = $row['lastts'];
 			}
-			mysql_free_result($result);
+			mysqli_free_result($result);
 			if($ts > $lastts + SESSIONTIMEOUT)
 			{
 				//session expired

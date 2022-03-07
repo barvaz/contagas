@@ -1,4 +1,4 @@
-<?
+<?php
 /*
    Copyright 2013 Amit Moravchick amit.moravchick@gmail.com
 
@@ -126,7 +126,7 @@ if (array_key_exists("pageSize", $_REQUEST)) {
         window.open(url, name, features);
     }
 </script>
-<?
+<?php
 foreach ($targetList as $t) {
     $style = "background-color: white;";
     if ($t[0] == $target) {

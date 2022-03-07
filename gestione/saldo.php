@@ -1,4 +1,4 @@
-<?
+<?php
 /*
    Copyright 2013 Amit Moravchick amit.moravchick@gmail.com
 
@@ -105,7 +105,7 @@ $flTinyMCE = false;
 			</td>
 		</tr>
 	</table>
-<?
+<?php
 $validation = "";
 $vaidationItem = array();
 echo "<script>var items = Array();</script>\n";
@@ -148,7 +148,7 @@ echo GetInput("extended", "hidden", $param1);
 		</tr>
 		<tr style="background-color: #666666;">
 			<td>&nbsp;</td>
-			<td class="titolo w" colspan="3"><? echo $title; ?></td>
+			<td class="titolo w" colspan="3"><?php echo $title; ?></td>
 			<td>&nbsp;</td>
 		</tr>
 		<tr>
@@ -156,7 +156,7 @@ echo GetInput("extended", "hidden", $param1);
 			<td colspan="3">
 
 				<table width="100%" border="0" cellspacing="0" cellpadding="5" class="admintable">
-<?
+<?php
 if(count($definition) > 0)
 {
 	$condition = $definition["key"] . " = $nodeId";
@@ -180,26 +180,26 @@ if(count($definition) > 0)
 //USCITE
            $conta_uscite=0;
            $sql_uscite = "select importo from ordini where fl_paid=1";
-                $result = mysql_query($sql_uscite, $cnn) or doError("sql_uscite","Errore nell'esecuzione della query: " . $sql_uscite);
-                while ($row = mysql_fetch_assoc($result)){
+                $result = mysqli_query($cnn, $sql_uscite) or doError("sql_uscite","Errore nell'esecuzione della query: " . $sql_uscite);
+                while ($row = mysqli_fetch_assoc($result)){
                  $importo=$row["importo"];
                  $nm_nome=$row["nm_nome"];
                  $ds_nota=$row["ds_nota"];
                  $dt_ordine=$row["dt_ordine"];
                  $conta_uscite=$conta_uscite+$importo;
                 }
-                mysql_free_result($result);
+                mysqli_free_result($result);
 //ENTRATE
            $conta_entrate=0;
            $sql_entrate = " select importo from versamenti";
-                $result = mysql_query($sql_entrate, $cnn) or doError("sql_entrate","Errore nell'esecuzione della query: " . $sql_entrate);
-                while ($row = mysql_fetch_assoc($result)){
+                $result = mysqli_query($cnn, $sql_entrate) or doError("sql_entrate","Errore nell'esecuzione della query: " . $sql_entrate);
+                while ($row = mysqli_fetch_assoc($result)){
                  $importo=$row["importo"];
                  $ds_causale=$row["ds_causale"];
                  $dt_versamento=$row["dt_versamento"];
                  $conta_entrate=$conta_entrate+$importo;
                 }
-                mysql_free_result($result);
+                mysqli_free_result($result);
 //TOTALI
 $euro_tot=$conta_entrate-$conta_uscite;
 $ts = date("Y-m-d");
@@ -215,27 +215,27 @@ $ts = date("Y-m-d");
            $conta_spese=0;
            $saldo_gas=0;
            $sql_ingressi = "select importo from versamenti where id_causale in (7,8)";
-                $result = mysql_query($sql_ingressi, $cnn) or doError("sql_ingressi","Errore nell'esecuzione della query: " . $sql_ingressi);
-                while ($row = mysql_fetch_assoc($result)){
+                $result = mysqli_query($cnn, $sql_ingressi) or doError("sql_ingressi","Errore nell'esecuzione della query: " . $sql_ingressi);
+                while ($row = mysqli_fetch_assoc($result)){
                  $importo=$row["importo"];
                  $conta_ingressi=$conta_ingressi+$importo;
                 }
-                mysql_free_result($result);
+                mysqli_free_result($result);
            //$sql_quote = "select importo from movimenti where id_ordine=12";
            $sql_quote = "select importo from versamenti where id_causale=2";
-                $result = mysql_query($sql_quote, $cnn) or doError("sql_quote","Errore nell'esecuzione della query: " . $sql_quote);
-                while ($row = mysql_fetch_assoc($result)){
+                $result = mysqli_query($cnn, $sql_quote) or doError("sql_quote","Errore nell'esecuzione della query: " . $sql_quote);
+                while ($row = mysqli_fetch_assoc($result)){
                  $importo=$row["importo"];
                  $conta_quote=$conta_quote+$importo;
                 }
-                mysql_free_result($result);
+                mysqli_free_result($result);
            $sql_spese = "select importo from ordini where id_causale in (4,6) and fl_paid=1";
-                $result = mysql_query($sql_spese, $cnn) or doError("sql_spese","Errore nell'esecuzione della query: " . $sql_spese);
-                while ($row = mysql_fetch_assoc($result)){
+                $result = mysqli_query($cnn, $sql_spese) or doError("sql_spese","Errore nell'esecuzione della query: " . $sql_spese);
+                while ($row = mysqli_fetch_assoc($result)){
                  $importo=$row["importo"];
                  $conta_spese=$conta_spese+$importo;
                 }
-                mysql_free_result($result);
+                mysqli_free_result($result);
            $saldo_gas=$conta_quote+$conta_ingressi-$conta_spese;
            echo "<table width=\"100%\"  border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"text-align: center;\" >\n";
            echo "<td>&nbsp;</td> \n";
@@ -257,7 +257,7 @@ $ts = date("Y-m-d");
 			</td>
 		</tr>
 	</table>
-<?
+<?php
 echo "</form>\n";
 if(count($vaidationItem) > 0)
 {

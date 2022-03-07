@@ -1,4 +1,4 @@
-<?
+<?php
 /*
    Copyright 2013 Amit Moravchick amit.moravchick@gmail.com
 
@@ -31,13 +31,13 @@ function getBilancio(&$cnn, $userID){
 			FROM versamenti AS a
 			WHERE a.id_gasista =$userID
 			)a";
-	$result = mysql_query($sql, $cnn)
+	$result = mysqli_query($cnn, $sql)
 			or doError ("sql", "Errore nell'esecuzione della query " . $sql);
-	while($row = mysql_fetch_assoc($result))
+	while($row = mysqli_fetch_assoc($result))
 	{
 		$retVal = $row['bilancio'];
 	}
-	mysql_free_result($result);
+	mysqli_free_result($result);
 	return $retVal;
 }
 ?>

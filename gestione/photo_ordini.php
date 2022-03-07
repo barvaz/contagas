@@ -1,4 +1,4 @@
-<?
+<?php
 /*
    Copyright 2013 Amit Moravchick amit.moravchick@gmail.com
 
@@ -74,7 +74,7 @@ $nodeId = intval($_REQUEST["nodeId"]);
     </tr>
     <tr style="background-color: #666666;">
         <td>&nbsp;</td>
-        <td class="titolo w" colspan="3"><? echo $title; ?></td>
+        <td class="titolo w" colspan="3"><?php echo $title; ?></td>
         <td>&nbsp;</td>
     </tr>
     <tr>
@@ -82,49 +82,49 @@ $nodeId = intval($_REQUEST["nodeId"]);
         <td colspan="3">
 
             <table width="100%" border="0" cellspacing="0" cellpadding="5" class="admintable">
-                <?
+                <?php
 
 // query per fotografare situazione contabile del ordine
                 $sql_ordiniGAS = " select id_fornitore from ordini where id  = " . $nodeId . "";
-                $resultordiniGAS = mysql_query($sql_ordiniGAS, $cnn) or doError("sql_ordiniGAS", "Errore nell'esecuzione della query: " . $sql_ordiniGAS);
-                while ($row = mysql_fetch_assoc($resultordiniGAS)) {
+                $resultordiniGAS = mysqli_query($cnn, $sql_ordiniGAS) or doError("sql_ordiniGAS", "Errore nell'esecuzione della query: " . $sql_ordiniGAS);
+                while ($row = mysqli_fetch_assoc($resultordiniGAS)) {
                     $id_fornitore = $row["id_fornitore"];
                 }
-                mysql_free_result($resultordiniGAS);
+                mysqli_free_result($resultordiniGAS);
 /// composizione della pagina solo nel caso che il ordine non sia relativo a speseGAS:
                 if ($id_fornitore != 5) {
 //USCITA = ordine
                     $conta_uscite = 0;
                     $diff = 0;
                     $sql_uscite = " select diff, importo from v_ordini where id  = " . $nodeId . "";
-                    $result = mysql_query($sql_uscite, $cnn) or doError("sql_uscite", "Errore nell'esecuzione della query: " . $sql_uscite);
+                    $result = mysqli_query($cnn, $sql_uscite) or doError("sql_uscite", "Errore nell'esecuzione della query: " . $sql_uscite);
                     echo "<table width=\"100%\"  border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"text-align: center;\" >\n";
                     echo "<hr noshade size='1' color='$leadcolor' style='dot'>";
                     echo "<td>&nbsp;</td> \n";
-                    while ($row = mysql_fetch_assoc($result)) {
+                    while ($row = mysqli_fetch_assoc($result)) {
                         $conta_uscite = round($row["importo"], 2);
                         $diff = round($row["diff"], 2);
                     }
-                    mysql_free_result($result);
+                    mysqli_free_result($result);
                     echo "<td>&nbsp;</td> \n";
                     echo "</table>\n";
 //ENTRATE
                     $conta_entrate = 0;
                     $sql_entrate = " select A.importo, B.nm_cognome from movimenti as A, users as B where A.id_gasista=B.id and A.id_ordine  = " . $nodeId;
-                    $result = mysql_query($sql_entrate, $cnn) or doError("sql_entrate", "Errore nell'esecuzione della query: " . $sql_entrate);
+                    $result = mysqli_query($cnn, $sql_entrate) or doError("sql_entrate", "Errore nell'esecuzione della query: " . $sql_entrate);
                     echo "<table width=\"100%\"  border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"text-align: center;\" >\n";
                     echo "<td>&nbsp;</td> \n";
                     echo "<hr noshade size='1' color='$leadcolor' style='dot'>";
                     echo "<tr>RIPARTIZIONE TRA I GASISTI</tr>\n";
                     echo "<hr noshade size='1' color='$leadcolor' style='dot'>";
                     echo "<tr><td colspan=5>IMPORTO </td><td colspan=5>NOME GASISTA</td></tr>\n";
-                    while ($row = mysql_fetch_assoc($result)) {
+                    while ($row = mysqli_fetch_assoc($result)) {
                         $importo = round($row["importo"], 2);
                         $nm_cognome = $row["nm_cognome"];
                         echo "<tr><td colspan=5>$importo </td><td colspan=5>$nm_cognome </td></td></tr> \n";
                         $conta_entrate = $conta_entrate + $importo;
                     }
-                    mysql_free_result($result);
+                    mysqli_free_result($result);
                     echo "<td>&nbsp;</td> \n";
                     echo "</table>\n";
 //TOTALI

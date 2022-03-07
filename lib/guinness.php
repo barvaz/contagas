@@ -1,4 +1,4 @@
-<?
+<?php
 /*
    Copyright 2013 Amit Moravchick amit.moravchick@gmail.com
 
@@ -203,8 +203,8 @@ function getDefinition(&$db, $iniFile, $iniSection, $tableName = ""){
 				if(strlen($data["table"]) > 0){
 					$query = "SHOW FIELDS FROM `" . $data["table"] . "`";
 					//debugMsg($query);
-					$rs = mysql_query($query, $db);
-					while ($row = mysql_fetch_array($rs)){
+					$rs = mysqli_query($db, $query);
+					while ($row = mysqli_fetch_array($rs)){
 						if(in_array($row["Field"], $fields)){
 							$dataType = $row["Type"];
 							$x = strpos($dataType, "(");

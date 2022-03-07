@@ -1,4 +1,4 @@
-<?
+<?php
 /*
    Copyright 2013 Amit Moravchick amit.moravchick@gmail.com
 
@@ -24,11 +24,6 @@ include ("../lib/htmlgen.php");
 include ("../lib/guinness.php");
 include ("../lib/gas.php");
 
-function rollback(){
-    mysql_query("ROLLBACK"); // transaction rolls back
-    echo "transaction rolled back";
-    exit;
-}
 $cnn = getDbConnection();
 $userId = getUserId($cnn);
 
@@ -62,16 +57,16 @@ $otherValues["dt_ins"] = $curDate;
 $otherValues["dt_agg"] = $curDate;
 $newValues = setValues($definition, "", $pagamData, true);
 
-mysql_query("BEGIN TRANSACTION"); // transaction begins
+mysqli_begin_transaction($cnn); // transaction begins
 
 $sql = getInsertQuery($definition["table"], $newValues, $otherValues, $excludeValues);//array("dt_ins","dt_agg"));
-$result = mysql_query($sql, $cnn) or doError("sql_gasisti","Errore nell'esecuzione della query: " . $sql);
-$pagamId = mysql_insert_id();
+$result = mysqli_query($cnn, $sql) or doError("sql_gasisti","Errore nell'esecuzione della query: " . $sql);
+$pagamId = mysqli_insert_id($cnn);
 
 $sql_gasisti = "select id,nm_nome,nm_cognome,ds_email,ds_telefono,indirizzo_1,indirizzo_2,username,password,fl_admin,fl_contabile,fl_attivo,dt_ins,dt_agg from users where fl_attivo = 1 and id > 0";
-$result = mysql_query($sql_gasisti, $cnn) or doError("sql_gasisti","Errore nell'esecuzione della query: " . $sql_gasisti);
+$result = mysqli_query($cnn, $sql_gasisti) or doError("sql_gasisti","Errore nell'esecuzione della query: " . $sql_gasisti);
 $gasisti = array();
-while ($row = mysql_fetch_assoc($result)){
+while ($row = mysqli_fetch_assoc($result)){
     $gasisti[] = $row;
 }
 //mysql_free_result($result);
@@ -89,7 +84,7 @@ foreach($gasisti as $gasista){
     $newValues = setValues($definition, "", $movData, true);
 
     $sql = getInsertQuery($definition["table"], $newValues, $otherValues, $excludeValues);//array("dt_ins","dt_agg"));
-    $result = mysql_query($sql, $cnn) or rollback();
+    $result = mysqli_query($cnn, $sql) or mysqli_rollback($cnn);
     $totaleQuote += QUOTA_ANNUALE;
 }
 
@@ -99,15 +94,15 @@ $newValues = setValues($definition, "", $pagamData, true);
 $sql = getUpdateQuery($definition["table"], $newValues, $otherValues, $excludeValues);//array("dt_ins","dt_agg"));
 $sql .= " WHERE " . $definition["key"] . " = $pagamId";
 debug($sql);
-$result = mysql_query($sql, $cnn) or rollback();
-mysql_query("COMMIT");
+$result = mysqli_query($cnn, $sql) or mysqli_rollback($cnn);
+mysqli_commit($cnn);
 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 
-<?
+<?php
 echo "<script language=\"javascript\">\n";
 echo "function chiudiAndRefresh(){\n";
 echo "opener.location.reload();\n";

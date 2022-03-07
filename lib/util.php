@@ -1,4 +1,4 @@
-<?
+<?php
 /*
    Copyright 2013 Amit Moravchick amit.moravchick@gmail.com
 
@@ -129,8 +129,8 @@ function logWrite($msg, $logLevel = "main")
 
 function getDbConnection()
 {
-	$cnn = mysql_connect(DB_HOST, DB_USER, DB_PWD) or doError ("sql", "ERRORE NELLA CONNESSIONE AL DATABASE");
-	mysql_select_db(DB_NAME, $cnn) or doError ("sql", "ERRORE NELL'APERTURA DEL DATABASE");
+	$cnn = mysqli_connect(DB_HOST, DB_USER, DB_PWD) or doError ("sql", "ERRORE NELLA CONNESSIONE AL DATABASE");
+	mysqli_select_db($cnn, DB_NAME) or doError ("sql", "ERRORE NELL'APERTURA DEL DATABASE");
 	return $cnn;
 }
 
@@ -390,12 +390,12 @@ function countRowsFromTable(&$cnn, $tableName, $whereCriteria = "", $pageSize = 
 	if(strlen($whereCriteria) > 0){
 		$sql .= " WHERE $whereCriteria";
 	}
-	$result = mysql_query($sql, $cnn) or doError("sql","Errore nell'esecuzione della query: " . $sql);
-	while($row = mysql_fetch_array($result))
+	$result = mysqli_query($cnn, $sql) or doError("sql","Errore nell'esecuzione della query: " . $sql);
+	while($row = mysqli_fetch_array($result))
 	{
 		$blocksCount = $row[0];
 	}
-	mysql_free_result($result);
+	mysqli_free_result($result);
 	return $blocksCount;
 }
 //
@@ -418,11 +418,11 @@ function getRowsFromTable(&$cnn, $tableName, $whereCriteria = "", $orderCriteria
 	$sql = $base . $order . $limit;
 	//debugMsg($orderCriteria);
 	//debugMsg($sql);
-	$result=mysql_query($sql, $cnn) or doError ("sql","Errore nell'esecuzione della query: " . $sql);
-	while ($row = mysql_fetch_assoc($result)){
+	$result=mysqli_query($cnn, $sql) or doError ("sql","Errore nell'esecuzione della query: " . $sql);
+	while ($row = mysqli_fetch_assoc($result)){
 		$outData[] = $row;
 	}
-	mysql_free_result($result);
+	mysqli_free_result($result);
 
 	return $outData;
 }
